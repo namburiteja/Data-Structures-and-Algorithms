@@ -1,0 +1,67 @@
+class Main {
+    static class Node{
+        int data;
+        Node next;
+        Node(int d){
+            this.data = d;
+            next = null;
+        }
+    }
+    Node head;
+    public static Main insert(Main list,int data){
+        Node new_node  = new Node(data);
+        if(list.head==null){
+            list.head = new_node;
+        }
+        else{
+            Node current = list.head; 
+            while(current.next!=null){
+                current = current.next;
+            }
+            current.next = new_node;
+        }
+        return list;
+    }
+    public static void printList(Main list){
+        Node curr = list.head;
+        while(curr.next!=null){
+            System.out.println(curr.data);
+            curr = curr.next;
+        }
+        System.out.println(curr.data);
+    }
+    public static void update(Main list,int position,int newData){
+        if(list.head==null){
+            System.out.println("cannout update");
+            return;
+        }
+        Node cur = list.head;
+        int count = 0;
+        while(cur!=null){
+            if(count==position){
+                cur.data = newData;
+                return;
+            }
+            count++;
+            cur = cur.next;
+        }
+        System.out.println("position not found in list");
+    }
+    public static void delete(Main list){
+        Node curr = list.head;
+        while(curr.next.next!=null){
+            curr = curr.next;
+        }
+        curr.next = null;
+    }
+    public static void main(String[] args) {
+        Main list = new Main();
+        int[] arr = {1,2,3,4,5};
+        for(int i=0;i<arr.length;i++){
+            list = insert(list,arr[i]);
+        }
+        delete(list);
+        update(list,2,33);
+        printList(list);
+    }
+}
