@@ -1,0 +1,20 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Queue<String> q = new LinkedList<>();//object creation
+        q.add("hello");
+        q.add("hi");
+        System.out.println(q);
+        System.out.println(q.peek());//peek() method used to return top most element present in queue
+        System.out.println(q+" This is the queue after checking top most element");
+        System.out.println(q.poll());//poll() method used to remove top most element
+        System.out.println(q+" This is the queue after deleting top most element");
+        System.out.println(q.size()+" - This size() method used to return length of the queue");
+        System.out.println(q.isEmpty()+" - This isEmpty() method used to return boolean value either true(if queue is empty) or false(if queue is not empty) ");
+        q.add("king");
+        q.add("queen");
+        for(String i:q){
+            System.out.print(i+" ");
+        }//looping in queue
+    }
+}
