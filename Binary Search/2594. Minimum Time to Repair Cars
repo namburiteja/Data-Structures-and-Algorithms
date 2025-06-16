@@ -1,0 +1,24 @@
+class Solution {
+    public boolean pri(int[] nums,int cars,long value){
+        for(int i=0;i<nums.length;i++){
+            int x = (int)Math.sqrt(value/nums[i]);
+            cars-=x;
+            if(cars<=0) return true;
+        }
+        return false;
+    }
+    public long repairCars(int[] ranks, int cars) {
+        long l = 1;
+        long r = (long) Arrays.stream(ranks).min().getAsInt() * cars * cars;
+        while(l<=r){
+            long mid = l+(r-l)/2;
+            if(pri(ranks,cars,mid)){
+                r = mid-1;
+            }
+            else{
+                l = mid+1;
+            }
+        }
+        return l;
+    }
+}
