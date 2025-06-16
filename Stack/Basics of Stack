@@ -1,0 +1,19 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Stack<String> st = new Stack<>();   //object creation of stack
+        st.push("teja");//push() used to add element into the stack
+        st.push("goodBoy");
+        st.push("Avna-Kada");
+        System.out.println(st);
+        st.pop();// pop() used to remove and return the top element in stack
+        System.out.println(st);
+        String topper= st.peek();//peek() used to return the top element in stack
+        System.out.println(topper);
+        System.out.println(st.size());//size() returns the length of the stack
+        System.out.println(st.isEmpty());// isEmpty() returns true if the satck is empty, if stack in not empty then return false
+        for(String i:st){
+            System.out.print(i+" ");//looping through stack
+        }
+    }
+}
