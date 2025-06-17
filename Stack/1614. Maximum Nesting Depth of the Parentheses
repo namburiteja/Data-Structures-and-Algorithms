@@ -1,0 +1,22 @@
+class Solution {
+    public int maxDepth(String s) {
+        Stack<Character> st = new Stack<>();
+        int ans = 0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i) == '('){
+                st.push('(');
+            }
+            else if(s.charAt(i) == ')'){
+                st.pop();
+            }
+            else{
+                continue;
+            }
+            if(st.size()>ans){
+                ans = st.size();
+            }
+        }
+        return ans;
+    }
+}
+// if u not understand the problem well check out this intution ans approach - https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/solutions/6852376/easy-solution-java-stack-approach-by-tej-t234/ 
