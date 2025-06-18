@@ -1,0 +1,30 @@
+class Solution {
+    public boolean pri(int[] nums,int op,int value){
+        for(int i=0;i<nums.length;i++){
+            int x = nums[i]/value;
+            if(nums[i]%value!=0){
+                x++;
+            }
+            x--;
+            op-=x;
+            if(op<0) return false;
+        }
+        return true;
+    }
+    public int minimumSize(int[] nums, int maxOperations) {
+        int l = 1;
+        int r = (int)Math.pow(10,9);
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(pri(nums,maxOperations,mid)){
+                r = mid-1;
+            }
+            else{
+                l = mid+1;
+            }
+        }
+        return l;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/solutions/6858516/easy-solution-java-binary-search-approac-diku/
