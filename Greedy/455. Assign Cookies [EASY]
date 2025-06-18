@@ -1,0 +1,17 @@
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int gp = 0;
+        int sp = 0;
+        while(sp<s.length){
+            if(gp<g.length && g[gp]<=s[sp]){
+                gp+=1;
+            }
+            sp+=1;
+        }
+        return gp;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY - 
+https://leetcode.com/problems/assign-cookies/solutions/6858975/easy-solution-java-greedy-approach-using-h0l7/
