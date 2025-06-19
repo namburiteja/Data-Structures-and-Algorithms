@@ -1,0 +1,29 @@
+class Solution {
+    public String cheppu(String s){
+        StringBuilder ss = new StringBuilder();
+        int add = 1;
+        for(int i=1;i<s.length();i++){
+            if(s.charAt(i)==s.charAt(i-1)){
+                add++;
+            }
+            else{
+                ss.append(add);
+                ss.append(s.charAt(i-1));
+                add = 1;
+            }
+        }
+        ss.append(add);
+        ss.append(s.charAt(s.length()-1));
+        return ss.toString();
+    }
+    public String countAndSay(int n) {
+        String res = "1";
+        while(n>1){
+            res = cheppu(res);
+            n--;
+        }
+        return res;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY - 
+https://leetcode.com/problems/count-and-say/solutions/6861838/simple-and-easy-solution-java-92-beats-b-bjot/
