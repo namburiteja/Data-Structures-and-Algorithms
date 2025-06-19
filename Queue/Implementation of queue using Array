@@ -1,0 +1,61 @@
+class Main {
+    int arr[] = new int[4];
+    int current_size = 0;
+    int start = -1;
+    int end = -1;
+    public void add(int val){
+        if(current_size==4){
+            System.out.println("The queue is full, unable to add another element");
+            return;
+        }
+        if(start==-1){
+            start++;
+        }
+        end = (end+1)%4;
+        arr[end] = val;
+        current_size++;
+    }
+    public void poll(){
+        if(current_size==0) {
+            System.out.println("The queue is empty,unable to pop any element");
+            return;
+        }
+        if(current_size==1){
+            start = end = -1;
+        }
+        else{
+            start = (start+1)%4;   
+        }
+        current_size--;
+    }
+    public void peek(){
+        if(current_size==0) System.out.println("No element presented");
+        else System.out.println("This is the first element in queue after performing all operations: "+arr[start]);
+    }
+    public void size(){
+        System.out.println("This is the size of the queue after performing all operations: "+current_size);
+    }
+    public static void main(String[] args) {
+        Main queue = new Main();
+        queue.add(5);
+        queue.add(6);
+        queue.add(7);
+        queue.poll();
+        queue.add(8);
+        queue.poll();
+        queue.add(9);
+        queue.add(10);
+        queue.peek();
+        queue.size();
+        System.out.println("This is the last element present in the queue after performing all operations: "+queue.arr[queue.end]);
+        for(int i=queue.start;i<4;i++){
+            System.out.print(queue.arr[i]+" ");
+        }
+        for(int i=0;i<=queue.end;i++){
+            System.out.print(queue.arr[i]+" ");
+        }
+        //for loops show perfectly if array fully cover without any zeroes
+    }
+}
+TIME COMPLEXITIES FOR ALL METHODS = O(1)
+SPACE COMPLEXITY = O(arr.length)
