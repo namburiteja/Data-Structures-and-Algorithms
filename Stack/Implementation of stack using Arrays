@@ -1,0 +1,52 @@
+class Main {
+    int[] arr = new int[10];
+    int top = -1;
+    public void push(int val){
+        if(top>=10) {
+            System.out.println("enough ra"); 
+            return;
+        }
+        top+=1;
+        arr[top] = val;
+    }
+    public void pop(){
+        if(top==-1){
+            System.out.println("There is no element to pop");
+            return;
+        }
+        top-=1;
+    }
+    public void peek(){
+        if(top==-1){
+            System.out.println("There is no element in the stack");
+            return;
+        }
+        System.out.println("This is the top element in the stack: "+arr[top]);
+    }
+    public void size(){
+        System.out.println("The size of the stack is: "+(top+1));
+    }
+    public void isEmpty(){
+        if(top==-1){
+            System.out.println(true);
+            return;
+        }
+        System.out.println(false);
+    }
+    public static void main(String[] args) {
+        Main stack = new Main();
+        stack.push(11);
+        stack.push(12);
+        stack.push(13);
+        stack.pop();
+        stack.peek();
+        stack.size();
+        stack.isEmpty();
+        System.out.print("Elements in stack after all operations: ");
+        for(int i=0;i<=stack.top;i++){
+            System.out.print(stack.arr[i]+" ");
+        }
+    }
+}
+TIME COMPLEXITY FOR EACH METHOD = O(1)
+SPACE COMPLEXITY = O(arr.length)
