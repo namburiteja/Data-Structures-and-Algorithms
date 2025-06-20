@@ -1,0 +1,20 @@
+class Solution {
+    public String clearDigits(String s) {
+        Stack<Character> st = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if((s.charAt(i) >= '0') & (s.charAt(i) <= '9')){
+                st.pop();
+            }
+            else{
+                st.push(s.charAt(i));
+            }
+        } 
+        StringBuilder ss = new StringBuilder(); 
+        for(char i:st){
+            ss.append(i);
+        }
+        return ss.toString();
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/clear-digits/solutions/6866597/clean-and-clear-solution-java-using-stac-pdow/
