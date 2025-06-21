@@ -1,0 +1,27 @@
+import java.util.*;
+class Main {
+    public static String postfixToInfix(String s){
+        Stack<String> st = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char ch= s.charAt(i);
+            if(Character.isLetterOrDigit(ch)){
+                st.push(ch + "");
+            }
+            else{
+                String t1 = st.peek();
+                st.pop();
+                String t2 = st.peek();
+                st.pop();
+                String aa = "("+t2+ch+t1+")";
+                st.push(aa);
+            }
+        }
+        return st.peek();
+    } 
+    public static void main(String[] args) {
+        String s = "ab-";
+        System.out.println(postfixToInfix(s));
+    }
+}
+TIME COMPLEXITY - O(N)+O(N)
+SPACE COMMPLEXITY - O(N)
