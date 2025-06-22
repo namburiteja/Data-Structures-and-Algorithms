@@ -1,0 +1,13 @@
+class Main {
+    public static void main(String[] args) {
+        int n = 20;
+        StringBuilder ss = new StringBuilder();
+        while(n!=1){
+            ss.append(n%2);
+            n/=2;
+        }
+        ss.append(n);
+        ss.reverse();
+        System.out.print(ss);
+    }
+}
