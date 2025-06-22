@@ -1,0 +1,27 @@
+class Solution {
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Stack<Integer> st = new Stack<>();
+        HashSet<Integer> hs = new HashSet<>();
+        int point = 0;
+        for(int i=0;i<popped.length;i++){
+            int ch = popped[i];
+            if(!hs.contains(ch)){
+                while((pushed[point]!=ch) && point!=pushed.length){
+                    st.push(pushed[point]);
+                    hs.add(pushed[point]);
+                    point++;
+                }
+                st.push(pushed[point]);
+                hs.add(pushed[point]);
+                point++;
+            }
+            if(st.peek()==ch){
+                st.pop();
+                hs.remove(ch);
+            }
+        }
+        return st.isEmpty();
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/validate-stack-sequences/solutions/6873907/easy-and-clean-solution-java-using-hashs-7tl7/
