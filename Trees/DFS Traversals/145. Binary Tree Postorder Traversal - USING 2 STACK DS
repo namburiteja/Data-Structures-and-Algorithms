@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    // ArrayList<Integer> arr = new ArrayList<>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        TreeNode node = root;
+        List<Integer> arr = new ArrayList<>();
+        if(node==null) return arr;
+        // postorderTraversal(root.left);
+        // postorderTraversal(root.right);
+        // arr.add(root.val);
+        // return arr;
+        Stack<TreeNode> st1 = new Stack<>();
+        Stack<TreeNode> st2 = new Stack<>();
+        st1.push(node);
+        while(!st1.isEmpty()){
+            st2.push(st1.pop());
+            if(st2.peek().left!=null) st1.push(st2.peek().left);
+            if(st2.peek().right!=null) st1.push(st2.peek().right);
+        }
+        while(!st2.isEmpty()){
+            arr.add(st2.pop().val);
+        }
+        return arr;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/binary-tree-postorder-traversal/solutions/6895514/using-2-stacks-iterative-approach-0ms-10-4fkh/
