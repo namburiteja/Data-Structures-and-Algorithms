@@ -1,0 +1,30 @@
+class Main {
+    public static void main(String[] args) {
+        int[] nums= {4,32,5,5,9,1};
+        System.out.print("Before selection sort: ");
+        for(int i=0;i<nums.length;i++){
+            System.out.print(nums[i]+" ");
+        }  
+
+        int small = -1;
+        for(int i=0;i<nums.length-1;i++){
+            small = i;
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[small]>nums[j]){
+                    small = j;
+                }
+            }
+            int temp = nums[i];
+            nums[i] = nums[small];
+            nums[small]  = temp;
+        }
+
+        System.out.println();
+        System.out.print("After selection sort: ");
+        for(int i=0;i<nums.length;i++){
+            System.out.print(nums[i]+" ");
+        }
+    }
+EXPLANATION - In each inner for loop we set the least element in array is positioned at 0th index and after that second inner for loop we set the second least element in array is positioned at 1st index and so on..
+TIME COMPLEXITY - O(N*N)
+}
