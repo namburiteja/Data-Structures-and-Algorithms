@@ -1,0 +1,17 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int ps = 0;
+        for(int i=0;i<nums.length;i++){
+            ps+=nums[i];
+        }
+        int lsum = 0;
+        for(int i=0;i<nums.length;i++){
+            ps = ps-nums[i];
+            if(ps==lsum) return i;
+            else lsum+=nums[i];
+        }
+        return -1;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/find-pivot-index/solutions/6902368/easy-solution-java-using-prefix-sum-by-t-qhd2/
