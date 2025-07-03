@@ -1,0 +1,18 @@
+import java.util.*;
+class Main {
+    public static void pri(int index, int n, int[] x,ArrayList<Integer> arr){
+        if(index==n){
+            System.out.println(arr);
+            return;
+        }
+        arr.add(x[index]);
+        pri(index+1,n,x,arr);
+        arr.remove(arr.size()-1);
+        pri(index+1,n,x,arr);
+    }
+    public static void main(String[] args) {
+        int[] x = {3,1,2};
+        ArrayList<Integer> arr = new ArrayList<>();
+        pri(0,x.length,x,arr);
+    }
+}
