@@ -1,0 +1,24 @@
+import java.util.*;
+class Main {
+    public static boolean pri(int ind,int n,int[] x,ArrayList<Integer> arr,int val){
+        if(n==ind){
+            if(val==1){
+                System.out.println(arr);
+                return true;
+            }
+            return false;
+        }
+        val+=x[ind];
+        arr.add(x[ind]);
+        if(pri(ind+1,n,x,arr,val) == true) return true;
+        val-=x[ind];
+        arr.remove(arr.size()-1);
+        if(pri(ind+1,n,x,arr,val) == true) return true;
+        return false;
+    }
+    public static void main(String[] args) {
+        int[] x = {1,2,1,1,2,2};
+        ArrayList<Integer> arr = new ArrayList<>();
+        pri(0,x.length,x,arr,0);
+    }
+}
