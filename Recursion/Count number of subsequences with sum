@@ -1,0 +1,19 @@
+import java.util.*;
+class Main {
+    public static int pri(int ind,int n,int[] x,int val,int size){
+        if(ind==n){
+            if(val==size) return 1;
+            else return 0;
+        }
+        val+=x[ind];
+        int l = pri(ind+1,n,x,val,size);
+        val-=x[ind];
+        int r = pri(ind+1,n,x,val,size);
+        return l+r;
+    }
+    public static void main(String[] args) {
+        int[] x = {1,2,1,1};
+        int neededsum = 2;
+        System.out.println(pri(0,x.length,x,0,neededsum));
+    }
+}
