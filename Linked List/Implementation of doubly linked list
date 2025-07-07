@@ -1,0 +1,115 @@
+public class ArrayToDoublyLinkedList {
+    public static Node arrayToDoublyLinkedList(int[] arr) {
+        if (arr.length == 0) return null;
+
+        Node head = new Node(arr[0]);
+        Node current = head;
+
+        for (int i = 1; i < arr.length; i++) {
+            Node newNode = new Node(arr[i]);
+            current.next = newNode;
+            newNode.prev = current;
+            current = newNode;
+        }
+
+        return head;
+    }
+    public static void printForward(Node head) {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    public static void printBackward(Node tail) {
+        Node temp = tail;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.prev;
+        }
+        System.out.println();
+    }
+    public static Node insertAtHead(Node head,int value){
+        Node new_node = new Node(value);
+        head.prev = new_node;
+        new_node.next = head;
+        head = new_node;
+        return head;
+    }
+    public static Node insertAtBeforeTail(Node head,int value){
+        Node tail = head;
+        while(tail.next!=null){
+            tail = tail.next;
+        }
+        Node curr = new Node(value);
+        tail.prev.next = curr;
+        curr.next = tail;
+        tail = curr;
+        return head;
+    }
+    public static Node insertAtAfterTail(Node head,int value){
+        Node tail = head;
+        while(tail.next!=null){
+            tail = tail.next;
+        }
+        Node curr = new Node(value);
+        tail.next = curr;
+        curr.prev = tail;
+        tail = curr;
+        return head;
+    }
+    public static Node insertAtkth(Node head,int pos,int vall){
+        int count = 1;
+        Node current = head;
+        while(count<pos){
+            count++;
+            // System.out.println(count);
+            current = current.next;
+        }
+        // System.out.println(current.data);
+        Node new_node = new Node(vall);
+        current.prev.next = new_node;
+        new_node.next = current;
+        return head;
+    }
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30, 40, 50,60,70,80};
+        Node head = arrayToDoublyLinkedList(arr);
+        //ORIGINAL
+        System.out.print("ORIGINAL: ");
+        printForward(head);
+        
+        // INSERT AT HEAD POSITION
+        head = insertAtHead(head,0);
+        System.out.print("INSERT AT HEAD POSITION : ");
+        printForward(head);
+        
+        //INSERT AT BEFORE TAIL
+        head = insertAtBeforeTail(head,75);
+        System.out.print("INSERT AT BEFORE TAIL : ");
+        printForward(head);
+        
+        //INSERT AT AFTER TAIL
+        head = insertAtAfterTail(head,90);
+        System.out.print("INSERT AT AFTER TAIL : ");
+        printForward(head);
+        
+        //INSERT AT KTH
+        head = insertAtkth(head,8,900);
+        System.out.print("INSERT AT KTH POSITION : ");
+        printForward(head);
+    }
+}
+
+class Node {
+    int data;
+    Node prev;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
