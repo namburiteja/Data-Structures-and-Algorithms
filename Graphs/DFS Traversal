@@ -1,0 +1,22 @@
+import java.util.*;
+class Main {
+    public static void depthfs(int x,int[] visited,int[][] arr,ArrayList<Integer> dfs){
+        if(visited[x]==0){
+            dfs.add(x);
+            visited[x]=1;
+        }
+        for(int i=0;i<arr[x].length;i++){
+            if(visited[arr[x][i]]==0){
+                depthfs(arr[x][i],visited,arr,dfs);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int[][] arr = {{},{2,3},{1,5,6},{1,4,7},{3,8},{2},{2},{3,8},{4,7}};
+        ArrayList<Integer> dfs = new ArrayList<>();
+        int x = 1;
+        int[] visited = new int[arr.length];
+        depthfs(x,visited,arr,dfs);
+        System.out.println(dfs);
+    }
+}
