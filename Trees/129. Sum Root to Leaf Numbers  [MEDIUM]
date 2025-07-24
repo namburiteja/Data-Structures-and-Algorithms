@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int finalans = 0;
+    public void dfs(TreeNode node,int ans){
+        if(node==null) return;
+        ans = ans*10+node.val;
+        if(node.left==null && node.right==null){
+            finalans+=ans;
+            return;
+        }
+        dfs(node.left,ans);
+        dfs(node.right,ans);
+    }
+    public int sumNumbers(TreeNode root) {
+        dfs(root,0);
+        return finalans;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/sum-root-to-leaf-numbers/solutions/6999745/easy-solution-java-dfs-0ms-100-beats-by-uxvwo/
