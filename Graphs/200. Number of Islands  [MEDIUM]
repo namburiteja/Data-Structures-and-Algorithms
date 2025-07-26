@@ -1,0 +1,46 @@
+class Solution {
+    static class Node{
+        int i;
+        int j;
+        Node(int x,int y){
+            i = x;
+            j = y;
+        }
+    }
+    public static void bfs(int i,int j,char[][] grid,boolean[][] visited){
+        Queue<Node> q = new LinkedList<>();
+        q.add(new Node(i,j));
+        visited[i][j]=true;
+        int[] directi = {-1,0,0,1};//up,right,down,left
+        int[] directj = {0,-1,1,0};
+        while(!q.isEmpty()){
+            Node node = q.poll();
+            int x = node.i;
+            int y = node.j;
+            for(int it=0;it<4;it++){
+                int dupx = x + directi[it];
+                int dupy = y + directj[it];
+                if(dupx>=0 && dupy>=0 && dupx<grid.length && dupy<grid[0].length && grid[dupx][dupy]=='1' && visited[dupx][dupy]==false ){
+                    q.offer(new Node(dupx,dupy));
+                    visited[dupx][dupy] = true;
+                }
+            }
+            
+        }
+    }
+    public int numIslands(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int islands = 0;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]=='1' && visited[i][j]==false){
+                    bfs(i,j,grid,visited);
+                    islands++;
+                }
+            }
+        }
+        return islands;
+    }
+}
