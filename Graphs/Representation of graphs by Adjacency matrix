@@ -1,0 +1,36 @@
+public class AdjacencyMatrix {
+    private int[][] adjMatrix;
+    private int numVertices;
+
+    public AdjacencyMatrix(int numVertices) {
+        this.numVertices = numVertices;
+        adjMatrix = new int[numVertices][numVertices];
+    }
+
+    public void addEdge(int i, int j) {
+        adjMatrix[i][j] = 1;
+        adjMatrix[j][i] = 1; // Remove this line for directed graph
+    }
+
+    public void printMatrix() {
+        System.out.println("Adjacency Matrix:");
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                System.out.print(adjMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int vertices = 4;
+
+        AdjacencyMatrix graph = new AdjacencyMatrix(vertices);
+
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+
+        graph.printMatrix();
+    }
+}
