@@ -1,0 +1,45 @@
+class Solution {
+    public static void bfs(int i,int j,boolean[][] visited,char[][] board){
+        Queue<List<Integer>> q = new LinkedList<>();
+        q.add(Arrays.asList(i,j));
+        board[i][j]='s';
+        visited[i][j] = true;
+        while(!q.isEmpty()){
+            List<Integer> node = q.poll();
+            int x = node.get(0);
+            int y = node.get(1);
+            int[] dx = {-1,0,1,0};
+            int[] dy = {0,-1,0,1};
+            for(int b=0;b<4;b++){
+                int newx = x+dx[b];
+                int newy = y+dy[b];
+                if(newx>=0 && newy>=0 && newx<board.length && newy<board[0].length && board[newx][newy]=='O' && visited[newx][newy]==false){
+                    q.add(Arrays.asList(newx,newy));
+                    board[newx][newy]='s';
+                    visited[newx][newy]=true;
+                }
+            }
+        }
+    }
+    public void solve(char[][] board) {
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++){
+            if(board[i][0]=='O') bfs(i,0,visited,board);
+            if(board[i][n-1]=='O') bfs(i,n-1,visited,board);
+        }
+        for(int i=0;i<n;i++){
+            if(board[0][i]=='O') bfs(0,i,visited,board);
+            if(board[m-1][i]=='O') bfs(m-1,i,visited,board);
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]=='O') board[i][j]='X';
+                if(board[i][j]=='s') board[i][j]='O';
+            }
+        }
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/surrounded-regions/solutions/7036359/easy-and-clear-solution-using-queue-ds-a-1doi/
