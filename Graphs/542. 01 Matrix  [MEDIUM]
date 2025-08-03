@@ -1,0 +1,70 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int[][] dist = new int[m][n];
+        boolean[][] vis = new boolean[m][n];
+        Queue<int[]> q = new LinkedList<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==0){
+                    q.add(new int[]{i,j});
+                    vis[i][j] = true;
+                }
+            }
+        }
+        int[] dx = {-1,0,1,0};
+        int[] dy = {0,-1,0,1};
+        while(!q.isEmpty()){
+            int[] node = q.poll();
+            int x = node[0];
+            int y = node[1];
+            for(int b=0;b<4;b++){
+                int newx = x+dx[b];
+                int newy = y+dy[b];
+                if(newx>=0 && newy>=0 && newx<m && newy<n && vis[newx][newy]==false){
+                    dist[newx][newy] = dist[x][y]+1;
+                    vis[newx][newy] = true;
+                    q.offer(new int[]{newx,newy});
+                }
+            }
+        }
+        return dist;
+    }
+}
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int[][] dist = new int[m][n];
+        boolean[][] vis = new boolean[m][n];
+        Queue<int[]> q = new LinkedList<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==0){
+                    q.add(new int[]{i,j});
+                    vis[i][j] = true;
+                }
+            }
+        }
+        int[] dx = {-1,0,1,0};
+        int[] dy = {0,-1,0,1};
+        while(!q.isEmpty()){
+            int[] node = q.poll();
+            int x = node[0];
+            int y = node[1];
+            for(int b=0;b<4;b++){
+                int newx = x+dx[b];
+                int newy = y+dy[b];
+                if(newx>=0 && newy>=0 && newx<m && newy<n && vis[newx][newy]==false){
+                    dist[newx][newy] = dist[x][y]+1;
+                    vis[newx][newy] = true;
+                    q.offer(new int[]{newx,newy});
+                }
+            }
+        }
+        return dist;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/01-matrix/solutions/7039321/normal-solution-java-using-bfs-by-teja_n-7b8x/
