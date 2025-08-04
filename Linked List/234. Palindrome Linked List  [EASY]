@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        List<Integer> li = new ArrayList<>();
+        ListNode curr = head;
+        while(curr!=null){
+            li.add(curr.val);
+            curr = curr.next;
+        }
+        int n = li.size();
+        for(int i=0;i<n;i++){
+            if(li.get(i)!=li.get(n-i-1)) return false;
+        }
+        return true;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/palindrome-linked-list/solutions/7044009/easy-and-clean-solution-java-using-list-xb7jh/
