@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCompleteTree(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int ans = 0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                TreeNode x = q.poll(); 
+                if(x.left!=null){
+                    q.add(x.left);
+                    if(ans==1) return false;
+                }else{
+                    ans=1;
+                }
+                if(x.right!=null){
+                    q.add(x.right);
+                    if(ans==1) return false;
+                }else{
+                    ans=1;
+                }
+            }
+        }
+        return true;
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/check-completeness-of-a-binary-tree/solutions/7043550/easy-and-clean-solution-java-using-bfs-b-mww2/
