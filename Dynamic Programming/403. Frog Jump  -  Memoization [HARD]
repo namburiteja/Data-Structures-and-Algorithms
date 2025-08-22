@@ -1,0 +1,35 @@
+class Solution {
+    public boolean climbing(int k,HashSet<Integer> set,int val,int last,HashSet<String> fs){
+        if(k<=0 || val>last) return false;
+        if(val==last) return true;
+        String xx = val+","+k;
+        if(!set.contains(val)) {
+            return false;
+        }
+        if(fs.contains(xx)) return false;
+        int a = k-1;
+        int v1 = val+a;
+        boolean x = climbing(a,set,v1,last,fs);
+        int b = k;
+        int v2 = val+b;
+        boolean y = climbing(b,set,v2,last,fs);
+        int c = k+1;
+        int v3 = val+c;
+        boolean z = climbing(c,set,v3,last,fs);
+        fs.add(xx);
+        return x || y || z; 
+    }
+    public boolean canCross(int[] stones) {
+        int k = 1;
+        int n = stones.length;
+        HashSet<String> finalSet = new HashSet<>();
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0;i<n;i++){
+            set.add(stones[i]);
+        }
+        int last = stones[n-1];
+        return climbing(k,set,1,last,finalSet);
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/frog-jump/solutions/7108956/easy-and-clean-solution-java-memoization-yfzt/
