@@ -1,0 +1,24 @@
+import java.util.*;
+class Main {
+    public static void recursion(int index, int n, int[] x,ArrayList<Integer> arr,int val,int k){
+        if(index==n){
+            if(k==val){
+                System.out.println(arr);
+            }
+            return;
+        }   
+        val+=x[index];
+        arr.add(x[index]);
+        recursion(index+1,n,x,arr,val,k);
+        val-=x[index];
+        arr.remove(arr.size()-1);
+        recursion(index+1,n,x,arr,val,k);
+    }
+    public static void main(String[] args) {
+        int[] x = {5, 5, 10, 100, 10, 5};
+        int k = 110;
+        int val = 0;
+        ArrayList<Integer> arr = new ArrayList<>();
+        recursion(0,x.length,x,arr,val,k);
+    }
+}
