@@ -1,0 +1,19 @@
+class Solution {
+    public int help(int[] arr,int i,int n,int[] dp){
+        if(i>=n) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int include = arr[i] + help(arr,i+2,n,dp);
+        int exclude = help(arr,i+1,n,dp);
+        dp[i] = Math.max(include,exclude);
+        return dp[i];
+    }
+    int findMaxSum(int arr[]) {
+        int n = arr.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp,-1);
+        System.out.println(help(arr,0,n,dp));
+        return help(arr,0,n,dp);
+    }
+}
+example - arr[] = [5, 5, 10, 100, 10, 5]
+o/p - 110
