@@ -1,0 +1,18 @@
+class Solution {
+    public int maxAmount(int ind,int[] nums,int[] dp){
+        if(ind>=nums.length) return 0;
+        if(dp[ind]!=-1) return dp[ind];
+        int include = nums[ind] + maxAmount(ind+2,nums,dp);
+        int exclude = maxAmount(ind+1,nums,dp);
+        dp[ind] = Math.max(include,exclude);
+        return dp[ind];
+    }
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp,-1);
+        return maxAmount(0,nums,dp);
+    }
+}
+FOR CLEAR EXPLANATION, INTUTION, APPROACH AND TIME-SPACE COMPLEXITY -
+https://leetcode.com/problems/house-robber/solutions/7123737/clear-solution-java-memoization-0ms-100-qtp7c/
