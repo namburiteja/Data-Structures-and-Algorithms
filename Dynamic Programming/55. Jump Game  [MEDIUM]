@@ -1,0 +1,18 @@
+class Solution {
+    public boolean jump(int ind,int[] arr,int[] dp){
+        if(ind>=arr.length-1) return true;
+        if(dp[ind]!=0) return false;
+        for(int i=ind+1;i<=arr[ind]+ind;i++){
+            if(jump(i,arr,dp)==true){
+                dp[i] = 1;
+                return true;
+            }
+        }
+        dp[ind] = -1;
+        return false;
+    }
+    public boolean canJump(int[] nums) {
+        int[] dp = new int[nums.length];
+        return jump(0,nums,dp);
+    }
+}
