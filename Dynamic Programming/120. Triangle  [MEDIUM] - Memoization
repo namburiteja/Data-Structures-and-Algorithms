@@ -1,0 +1,14 @@
+class Solution {
+    public int minTriangle(int i,int j,List<List<Integer>> arr,Integer[][] dp){
+        if(i==arr.size()-1) return arr.get(arr.size()-1).get(j);
+        if(dp[i][j]!=null) return dp[i][j];
+        int down = arr.get(i).get(j) + minTriangle(i+1,j,arr,dp);
+        int diag = arr.get(i).get(j) + minTriangle(i+1,j+1,arr,dp);
+        return dp[i][j] = Math.min(down,diag);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        Integer[][] dp = new Integer[n][n];
+        return minTriangle(0,0,triangle,dp);
+    }
+}
