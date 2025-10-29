@@ -1,0 +1,39 @@
+class Main {
+    public static void main(String[] args) {
+        int[] arr = {1,7,2,3,7,5,4};
+        int n = arr.length;
+        int xr = 0;
+        for(int i=0;i<n;i++){
+            xr = xr^arr[i];
+            xr = xr^i+1;
+        }
+        int bitno = 0;
+        while(true){
+            if((xr & (1<<bitno))!=0) break;
+            bitno++;
+        }
+        int ones=0,zeroes=0;
+        for(int i=0;i<n;i++){
+            if((arr[i]&(1<<bitno))!=0) ones = ones^arr[i];
+            else zeroes = zeroes^arr[i];
+        }
+        for(int i=1;i<=n;i++){
+            if((i&(1<<bitno))!=0) ones = ones^i;
+            else zeroes = zeroes^arr[i];
+        }
+        int cnt = 0;
+        for(int i=0;i<n;i++){
+            if(ones==arr[i]) cnt++;
+        }
+        if(cnt==2){
+            System.out.println("Repeating is: "+ones);
+            System.out.println("Missing is: "+zeroes);
+        }
+        else{
+            System.out.println("Repeating is: "+zeroes);
+            System.out.println("Missing is: "+ones);
+        }
+    }
+}
+Time Complexity - O(n)
+Space Complexity - O(1)
