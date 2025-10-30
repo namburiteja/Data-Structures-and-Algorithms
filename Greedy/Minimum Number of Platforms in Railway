@@ -1,0 +1,25 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        int[] Arrival = {900, 940, 950, 1100, 1500, 1800};
+        int[] Departure = {940, 1200, 1120, 1130, 1900, 2000};
+        int n = Arrival.length;
+        int[][] ans = new int[2 * n][2];
+        for (int i = 0; i < n; i++) {
+            ans[i][0] = Arrival[i];
+            ans[i][1] = 0; // arrival
+            ans[i + n][0] = Departure[i];
+            ans[i + n][1] = 1; // departure
+        }
+        Arrays.sort(ans, (a, b) -> (a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]));
+        int cnt = 0, maxi = 0;
+        for (int i = 0; i < 2 * n; i++) {
+            if (ans[i][1] == 0) cnt++;  // arrival
+            else cnt--;                 // departure
+            maxi = Math.max(maxi, cnt);
+        }
+        System.out.print(maxi);
+    }
+}
+Time Complexity - O(2*nlogn)
+Space Complexity - O(n)
