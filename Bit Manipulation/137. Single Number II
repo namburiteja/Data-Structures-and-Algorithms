@@ -1,0 +1,14 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int i=1;
+        while(i<n){
+            if(nums[i]!=nums[i-1]) return nums[i-1];
+            else i+=3;
+        }
+        return nums[n-1];
+    }
+}
+Time Complexity - O(n log n) + O(n/3)
+Space Complexity - O(1)
