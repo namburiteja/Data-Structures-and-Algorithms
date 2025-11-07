@@ -1,0 +1,29 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        int xor = nums[0];
+        int n = nums.length;
+        for(int i=1;i<n;i++){
+            xor = xor ^ nums[i];
+        }
+        int bitno = 0;
+        while(true){
+            if(((xor)&(1<<bitno))!=0) break;
+            bitno++;
+        }
+        int[] ans = new int[2];
+        int buck1 = 0;
+        int buck2 = 0;
+        for(int i=0;i<n;i++){
+            if((nums[i] & (1<<bitno))!=0){
+                buck1 ^= nums[i];
+            }else{
+                buck2 ^= nums[i];
+            }
+        }
+        ans[0] = buck1;
+        ans[1] = buck2;
+        return ans;
+    }
+}
+Time Complexity - O(n)
+Space Complexity - O(1)
