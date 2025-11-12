@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 2, 3, 3, 4};
+        int k = 3;
+
+        Integer result = kthDistinctLargest(arr, k);
+        if (result == null)
+            System.out.println("Less than " + k + " there are no distinct elements.");
+        else
+            System.out.println("The " + k + " distinct largest element is: " + result);
+    }
+
+    public static Integer kthDistinctLargest(int[] arr, int k) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : arr)
+            set.add(num);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : set) {
+            minHeap.add(num);
+            if (minHeap.size() > k) {
+                minHeap.poll(); 
+            }
+        }
+        if (minHeap.size() < k)
+            return null;
+        return minHeap.peek();
+    }
+}
+Time Complexity - O(n)
+Space Complexity - O(n+k)
