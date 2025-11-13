@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        int[][] arrays = {{1, 4, 5},{1, 3, 4},{2, 6}};
+        PriorityQueue<Element> minHeap = new PriorityQueue<>(Comparator.comparingInt(e -> e.value));
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < arrays.length; i++) {
+            if (arrays[i].length > 0) {
+                minHeap.add(new Element(arrays[i][0], i, 0));
+            }
+        }
+        while (!minHeap.isEmpty()) {
+            Element current = minHeap.poll();
+            result.add(current.value);
+            int nextIndex = current.elementIndex + 1;
+            if (nextIndex < arrays[current.arrayIndex].length) {
+                minHeap.add(new Element(
+                    arrays[current.arrayIndex][nextIndex],
+                    current.arrayIndex,
+                    nextIndex
+                ));
+            }
+        }
+        System.out.print(result);
+    }
+}
+class Element {
+    int value;
+    int arrayIndex;
+    int elementIndex;
+
+    Element(int x, int y, int z) {
+        value = x;
+        arrayIndex = y;
+        elementIndex = z;
+    }
+}
+Time Complexity - O(m*n)
+Space Complexity - O(m)
