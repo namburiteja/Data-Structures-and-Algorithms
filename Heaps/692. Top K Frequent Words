@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> hm = new HashMap<>();
+        for(String i:words){
+            hm.put(i,hm.getOrDefault(i,0)+1);
+        }
+        PriorityQueue<String> pq = new PriorityQueue<>((a,b)->{
+            if(hm.get(a).equals(hm.get(b))) return b.compareTo(a);
+            return hm.get(a) - hm.get(b);
+        });
+        for(String kk:hm.keySet()){
+            pq.add(kk);
+            if(pq.size()>k) pq.poll();
+        }
+        List<String> result = new ArrayList<>();
+        while(!pq.isEmpty()) result.add(pq.poll());
+        Collections.reverse(result);
+        return result;
+    }
+}
+Time Complexity - O(n logk)
+Space Complexity - O(n+k)
