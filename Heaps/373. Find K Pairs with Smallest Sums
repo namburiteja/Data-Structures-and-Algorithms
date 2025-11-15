@@ -1,0 +1,43 @@
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((c,d)->c[0]-d[0]);
+        HashSet<String> hs = new HashSet<>();
+        int i=0;
+        int j=0;
+        pq.add(new int[]{nums1[i]+nums2[j],i,j});
+        hs.add(i+","+j);
+        List<List<Integer>> res = new ArrayList<>();
+        while(k-->0 && !pq.isEmpty()){
+            int[] curr = pq.poll();
+            int sum = curr[0];
+            int x = curr[1];
+            int y = curr[2];
+            List<Integer> temp = new ArrayList<>();
+            temp.add(nums1[x]);
+            temp.add(nums2[y]);
+            res.add(temp);
+            if(x+1 <n1){
+                String key = (x+1)+","+y;
+                if(!hs.contains(key)){
+                    hs.add(key);
+                    pq.add(new int[]{nums1[x+1]+nums2[y],x+1,y});
+                }
+            }
+            if(y+1<n2){
+                String key = (x)+","+(y+1);
+                if(!hs.contains(key)){
+                    hs.add(key);
+                    pq.add(new int[]{nums1[x]+nums2[y+1],x,y+1});
+                }
+            }
+        }
+        return res;
+    }
+}
+
+Time Complexity - O(k logk)
+Space Complexity - O(k)
