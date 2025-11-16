@@ -1,0 +1,19 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] freq = new int[26];
+        for(char x:tasks) freq[x-'A']++;
+        Arrays.sort(freq);
+        int maxFreq = freq[25];
+        int maxCount = 1;
+        for(int i=24;i>=0;i--){
+            if(freq[i]==maxFreq) maxCount++;
+            else break;
+        }
+        int middleParts = maxFreq-1;
+        int emptySlots = middleParts * (n+1);
+        int result = emptySlots + maxCount;
+        return Math.max(result,tasks.length);
+    }
+}
+Time Complexity - O(n logn)
+Space Complexity - O(24)
