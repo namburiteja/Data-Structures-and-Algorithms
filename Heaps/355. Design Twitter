@@ -1,0 +1,62 @@
+class Twitter {
+    HashMap<Integer,List<Tweet>> tweetMap;
+    HashMap<Integer,HashSet<Integer>> followingMap;
+    class Tweet{
+        int id,time;
+        Tweet(int x,int y){
+            id = x;
+            time = y;
+        }
+    }
+    int timeStamp = 0;
+    public Twitter() {
+        tweetMap = new HashMap<>();
+        followingMap = new HashMap<>();
+    }
+    public void postTweet(int userId, int tweetId) {
+        tweetMap.putIfAbsent(userId,new ArrayList<>());
+        tweetMap.get(userId).add(new Tweet(tweetId,timeStamp++));
+
+    }
+    
+    public List<Integer> getNewsFeed(int userId) {
+        List<Integer> res = new ArrayList<>();
+        PriorityQueue<Tweet> pq = new PriorityQueue<>((c,d)->d.time - c.time);
+        if(tweetMap.containsKey(userId)){
+            pq.addAll(tweetMap.get(userId));
+        }
+        if(followingMap.containsKey(userId)){
+            for(int i:followingMap.get(userId)){
+                if(tweetMap.containsKey(i)){
+                    pq.addAll(tweetMap.get(i));
+                }
+            }
+        }
+        int i=0;
+        while(!pq.isEmpty() && i++<10){
+            res.add(pq.poll().id);
+        }
+        return res;
+    }
+    
+    public void follow(int followerId, int followeeId) {
+        followingMap.putIfAbsent(followerId,new HashSet<>());
+        followingMap.get(followerId).add(followeeId);
+    }
+    
+    public void unfollow(int followerId, int followeeId) {
+        if(followingMap.containsKey(followerId)){
+            followingMap.get(followerId).remove(followeeId);
+        }
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.postTweet(userId,tweetId);
+ * List<Integer> param_2 = obj.getNewsFeed(userId);
+ * obj.follow(followerId,followeeId);
+ * obj.unfollow(followerId,followeeId);
+ */
+
