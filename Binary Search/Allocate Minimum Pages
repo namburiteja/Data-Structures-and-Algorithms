@@ -1,0 +1,26 @@
+class Solution {
+    public boolean canWeAllocate(int[] nums,int k,int val){
+        int cnt=0,maxPages = 0;
+        for(int i=0;i<nums.length;i++){
+            if(maxPages+nums[i]<=val){
+                maxPages+=nums[i];
+            }else{
+                maxPages = nums[i];
+                cnt++;
+            }
+            if(cnt>=k) return true;
+        }
+        return false;
+    }
+    public int findPages(int[] arr, int k) {
+        if(k>arr.length) return -1;
+        int l = Arrays.stream(arr).max().getAsInt();
+        int r = Arrays.stream(arr).sum();
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(canWeAllocate(arr,k,mid)==true) l = mid+1;
+            else r = mid-1;
+        }
+        return l;
+    }
+}
