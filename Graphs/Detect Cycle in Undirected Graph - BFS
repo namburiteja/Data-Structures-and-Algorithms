@@ -1,0 +1,39 @@
+class Solution {
+    public boolean bfs(List<List<Integer>> li,boolean[] visited,int i){
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{i,-1});
+        visited[i] = true;
+        while(!q.isEmpty()){
+            int node = q.peek()[0];
+            int parent = q.poll()[1];
+            for(int adjacentNode:li.get(node)){
+                if(visited[adjacentNode]==false){
+                    q.add(new int[]{adjacentNode,node});
+                    visited[adjacentNode] = true;
+                }else if(parent!=adjacentNode) return true;
+            }
+        }
+        return false;
+    }
+    public boolean isCycle(int V, int[][] edges) {
+        List<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adjList.add(new ArrayList<>());
+        }
+        int m = edges.length;
+        int n = edges[0].length;
+        boolean[] visited = new boolean[V];
+        for(int i=0;i<m;i++){
+            adjList.get(edges[i][0]).add(edges[i][1]);
+            adjList.get(edges[i][1]).add(edges[i][0]);
+        }
+        for(int i=0;i<V;i++){
+            if(visited[i]==false){
+                if(bfs(adjList,visited,i)==true) return true;
+            }
+        }
+        return false;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
