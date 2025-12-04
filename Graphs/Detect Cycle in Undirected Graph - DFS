@@ -1,0 +1,28 @@
+class Solution {
+    public boolean dfs(List<List<Integer>> adj,int[] visited,int node,int parent){
+        visited[node] = 1;
+        for(int adjacentNode:adj.get(node)){
+            if(visited[adjacentNode]==0){
+                if(dfs(adj,visited,adjacentNode,node)== true) return true;
+            }else if(parent!=adjacentNode) return true;
+        }
+        return false; 
+    }
+    public boolean isCycle(int V, int[][] edges) {
+        List<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<V;i++) adjList.add(new ArrayList<>());
+        for(int i=0;i<edges.length;i++){
+            adjList.get(edges[i][0]).add(edges[i][1]);
+            adjList.get(edges[i][1]).add(edges[i][0]);
+        }
+        int[] visited = new int[V];
+        for(int i=0;i<V;i++){
+            if(visited[i]==0){
+                if(dfs(adjList,visited,i,-1)) return true;
+            }
+        }
+        return false;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
