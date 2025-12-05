@@ -1,0 +1,36 @@
+class Solution {
+    void dfs(int x,int y,boolean[][] visited,int[][] grid,List<String> arr,int base0,int base1){
+        visited[x][y] = true;
+        arr.add(toStringg(x-base0,y-base1));
+        int[] dx = {-1,0,0,1};
+        int[] dy = {0,-1,1,0};
+        for(int i=0;i<4;i++){
+            int newx = x+dx[i];
+            int newy = y+dy[i];
+            if(newx>=0 && newy>=0 && newx<grid.length && newy<grid[0].length && !visited[newx][newy] && grid[newx][newy]==1){
+                dfs(newx,newy,visited,grid,arr,base0,base1);
+            }
+        }
+    }
+    String toStringg(int r,int c){
+        return Integer.toString(r)+" "+Integer.toString(c);
+    }
+    int countDistinctIslands(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        HashSet<List<String>> hs = new HashSet<>();
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(visited[i][j]==false && grid[i][j]==1){
+                    ArrayList<String> arr = new ArrayList<>();
+                    dfs(i,j,visited,grid,arr,i,j);
+                    hs.add(arr);
+                }
+            }
+        }
+        return hs.size();
+    }
+}
+Time Complexity - O(m*n)
+Space Complexity - O(m*n)
