@@ -1,0 +1,30 @@
+class Solution {
+    public boolean dfs(int[][] graph,int[] visited,int x,int color){
+        visited[x] = color;
+        for(int i:graph[x]){
+            if(visited[i]==0){
+                if(visited[x]==1){
+                    if(!dfs(graph,visited,i,2)) return false;
+                }else if(visited[x]==2){
+                    if(!dfs(graph,visited,i,1)) return false;
+                }
+            }else{
+                if(visited[x]==visited[i]) return false;
+            }
+        }
+        return true;
+    }
+    public boolean isBipartite(int[][] graph) {
+        int m = graph.length;
+        if(m<=1) return true;
+        int[] visited = new int[m];
+        for(int i=0;i<m;i++){
+            if(visited[i]==0){
+                if(dfs(graph,visited,i,1)==false) return false;
+            }
+        }
+        return true;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V)
