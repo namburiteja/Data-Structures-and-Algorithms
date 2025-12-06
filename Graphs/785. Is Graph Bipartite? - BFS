@@ -1,0 +1,32 @@
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int m = graph.length;
+        if(m<=1) return true;
+        int[] visited = new int[m];
+        for(int start=0;start<m;start++){
+            if(visited[start]!=0) continue;
+            Queue<Integer> q = new LinkedList<>();
+            q.add(start);
+            visited[start] = 1;
+            while(!q.isEmpty()){
+                int x = q.poll();
+                for(int i=0;i<graph[x].length;i++){
+                    if(visited[graph[x][i]]==0){
+                        if(visited[x]==1){
+                            visited[graph[x][i]] = 2;
+                            q.add(graph[x][i]);
+                        }else if(visited[x]==2){
+                            visited[graph[x][i]] = 1;
+                            q.add(graph[x][i]);
+                        }
+                    }else{
+                        if(visited[graph[x][i]]==visited[x]) return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V)
