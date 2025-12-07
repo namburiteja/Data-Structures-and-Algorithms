@@ -1,0 +1,32 @@
+class Solution {
+    boolean dfs(List<List<Integer>> list,int[] visited,int[] pathVis,int x){
+        visited[x] = 1;
+        pathVis[x] = 1;
+        for(int i:list.get(x)){
+            if(visited[i]==0){
+                if(dfs(list,visited,pathVis,i)) return true;
+            }else if(visited[i]==1 && pathVis[i]==1) return true;
+        }
+        pathVis[x] = 0;
+        return false;
+    }
+    public boolean isCyclic(int V, int[][] edges) {
+        ArrayList<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adjList.add(new ArrayList<>());
+        }
+        for(int i=0;i<edges.length;i++){
+            adjList.get(edges[i][0]).add(edges[i][1]);
+        }
+        int[] visited = new int[V];
+        int[] pathVis = new int[V];
+        for(int i=0;i<V;i++){
+            if(visited[i]==0){
+                if(dfs(adjList,visited,pathVis,i)) return true;
+            }
+        }
+        return false;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
