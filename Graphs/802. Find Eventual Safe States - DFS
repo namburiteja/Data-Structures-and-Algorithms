@@ -1,0 +1,34 @@
+class Solution {
+    boolean dfs(int[][] graph,int[] visited,int[] pathVis,int x,int[] check){
+        visited[x] = 1;
+        pathVis[x] = 1;
+        check[x] = 0;
+        for(int i:graph[x]){
+            if(visited[i]==0){
+                if(dfs(graph,visited,pathVis,i,check)) return true;  
+            }else if(visited[i]==1 && pathVis[i]==1 ) return true;
+        }
+        pathVis[x] = 0;
+        check[x] = 1;
+        return false;
+    }
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int m = graph.length;
+        int[] visited = new int[m];
+        int[] pathVis = new int[m];
+        int[] check = new int[m];
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<m;i++){
+            if(visited[i]==0){
+                dfs(graph,visited,pathVis,i,check);
+            }
+        }
+        for(int i=0;i<m;i++){
+            if(check[i]==1) res.add(i);
+        }
+        // res.sort();
+        return res;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
