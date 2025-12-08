@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isCyclic(int V, int[][] edges) {
+        ArrayList<List<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(edges[i][1]);
+        }
+        int[] indegree = new int[V];
+        for(List<Integer> i:adj) for(int j:i) indegree[j]++;
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<V;i++) if(indegree[i]==0) q.add(i);
+        int cnt = 0;
+        while(!q.isEmpty()){
+            int x = q.poll();
+            cnt++;
+            for(int i:adj.get(x)){
+                indegree[i]--;
+                if(indegree[i]==0) q.add(i);
+            }
+        }
+        if(cnt==V) return false;
+        return true;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
