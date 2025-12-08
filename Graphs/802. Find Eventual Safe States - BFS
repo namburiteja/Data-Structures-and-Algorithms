@@ -1,0 +1,29 @@
+class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        List<List<Integer>> adj = new ArrayList<>();//for reverse
+        int m = graph.length;
+        for(int i=0;i<m;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<m;i++){
+            for(int j:graph[i]){
+                adj.get(j).add(i);
+            }
+        }
+        int[] indegree = new int[m];
+        for(List<Integer> i:adj) for(int j:i) indegree[j]++;
+        List<Integer> res = new ArrayList<>();
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<m;i++) if(indegree[i]==0) q.add(i);
+        while(!q.isEmpty()){
+            int x = q.poll();
+            res.add(x);
+            for(int i:adj.get(x)){
+                indegree[i]--;
+                if(indegree[i]==0) q.add(i);
+            }
+        } 
+        Collections.sort(res);
+        return res;
+    }
+}
+TIME COMPLEXITY - O(V+E)
+SPACE COMPLEXITY - O(V+E)
