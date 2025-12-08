@@ -1,0 +1,29 @@
+class Solution {
+    public ArrayList<Integer> topoSort(int V, int[][] edges) {
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<V;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(edges[i][1]);
+        }
+        Queue<Integer>q = new LinkedList<>();
+        int indegree[] = new int[V];
+        for(List<Integer> i:adj){
+            for(int j:i){
+                indegree[j]++;
+            }
+        }
+        for(int i=0;i<V;i++) if(indegree[i]==0) q.add(i);
+        ArrayList<Integer> res = new ArrayList<>();
+        while(!q.isEmpty()){
+            int x = q.poll();
+            res.add(x);
+            for(int i:adj.get(x)){
+                indegree[i]--;
+                if(indegree[i]==0) q.add(i);
+            }
+        }
+        return res;
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
