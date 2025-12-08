@@ -1,0 +1,26 @@
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adj = new ArrayList<>();
+        int m = prerequisites.length;
+        for(int i=0;i<numCourses;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<m;i++) adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        int[] indegree = new int[numCourses];
+        for(List<Integer> i:adj) for(int j:i) indegree[j]++;
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<numCourses;i++) if(indegree[i]==0) q.add(i);
+        int[] res = new int[numCourses];
+        int i=0;
+        while(!q.isEmpty()){
+            int x = q.poll();
+            res[i++] = x;
+            for(int j:adj.get(x)){
+                indegree[j]--;
+                if(indegree[j]==0) q.add(j);
+            }
+        }
+        if(i==numCourses) return res;
+        return new int[0];
+    }
+}
+Time Complexity - O(V+E)
+Space Complexity - O(V+E)
