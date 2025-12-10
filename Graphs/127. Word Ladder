@@ -1,0 +1,35 @@
+class Solution {
+    static class Pair{
+        String word;
+        int level;
+        Pair(String x,int y){
+            word = x;
+            level = y;
+        }
+    }
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(beginWord,1));
+        HashSet<String> hs = new HashSet<>(wordList);
+        hs.remove(beginWord);
+        while(!q.isEmpty()){
+            String word = q.peek().word;
+            int step = q.poll().level;
+            if(word.equals(endWord)) return step;
+            for(int i=0;i<word.length();i++){
+                for(char j='a';j<='z';j++){
+                    char[] array = word.toCharArray();
+                    array[i] = j;
+                    String newStr = new String(array);
+                    if(hs.contains(newStr)){
+                        hs.remove(newStr);
+                        q.add(new Pair(newStr,step+1));
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+}
+TIME COMPLEXITY - O(wordList.length*n*26)
+SPACE COMPLEXITY - O(wordList.length)
