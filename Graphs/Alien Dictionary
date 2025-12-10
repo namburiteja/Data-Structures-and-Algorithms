@@ -1,0 +1,48 @@
+class Solution {
+    public String findOrder(String[] words) {
+        int n = words.length;
+        int k = 26;
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<k;i++) adj.add(new ArrayList<>());
+        boolean[] present = new boolean[k];
+        int total = 0;
+        for(int i=0;i<words.length;i++){
+            for(int j=0;j<words[i].length();j++){
+                if(present[words[i].charAt(j) - 'a']==false){
+                    present[words[i].charAt(j) - 'a'] = true;
+                    total++;
+                }
+            }
+        }
+        for(int i=0;i<words.length-1;i++){
+            String a = words[i];
+            String b = words[i+1];
+            int mini = Math.min(a.length(),b.length());
+            int j;
+            for(j=0;j<mini;j++){
+                if(a.charAt(j)!=b.charAt(j)){
+                    adj.get(a.charAt(j) - 'a').add(b.charAt(j) - 'a');
+                    break;
+                }
+            }
+            if(j==mini && a.length()>b.length()) return "";
+        }
+        int[] indegree = new int[k];
+        for(List<Integer> i:adj) for(int j:i) indegree[j]++;
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<k;i++) if(indegree[i]==0 && present[i]==true) q.add(i);
+        StringBuilder sb = new StringBuilder();
+        while(!q.isEmpty()){
+            int x = q.poll();
+            sb.append((char)(x + 'a'));
+            for(int i:adj.get(x)){
+                indegree[i]--;
+                if(indegree[i]==0) q.add(i);
+            }
+        }
+        if(sb.length()!=total) return "";
+        return sb.toString();
+    }
+}
+
+
