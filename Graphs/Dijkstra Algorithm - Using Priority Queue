@@ -1,0 +1,38 @@
+class Solution {
+    static class Pair{
+        int distance;
+        int node;
+        Pair(int x,int y){
+            distance = x;
+            node = y;
+        }
+    }
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        PriorityQueue<Pair> pq = new PriorityQueue<>((c,d)->c.distance-d.distance);
+        List<List<Pair>> adj = new ArrayList<>();
+        for(int i=0;i<V;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(new Pair(edges[i][2],edges[i][1]));
+            adj.get(edges[i][1]).add(new Pair(edges[i][2],edges[i][0]));
+        }
+        pq.add(new Pair(0,src));
+        int[] dist = new int[V];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src] = 0;
+        while(!pq.isEmpty()){
+            int node = pq.peek().node;
+            int distance = pq.poll().distance;
+            for(Pair i:adj.get(node)){
+                int newNode = i.node;
+                int newDistance = i.distance;
+                if(newDistance+distance<dist[newNode]){
+                    dist[newNode] = newDistance+distance;
+                    pq.offer(new Pair(newDistance+distance,newNode));
+                }
+            }
+        }
+        return dist;
+    }
+}
+TIME COMPLEXITY - O(V+E)
+SPACE COMPLEXITY - O(V+E)
