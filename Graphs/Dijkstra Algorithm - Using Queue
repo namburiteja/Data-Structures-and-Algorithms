@@ -1,0 +1,36 @@
+class Solution {
+    static class Pair{
+        int distance;
+        int node;
+        Pair(int x,int y){
+            distance = x;
+            node = y;
+        }
+    }
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        Queue<Pair> q = new LinkedList<>();
+        List<List<Pair>> adj = new ArrayList<>();
+        for(int i=0;i<V;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(new Pair(edges[i][2],edges[i][1]));
+            adj.get(edges[i][1]).add(new Pair(edges[i][2],edges[i][0]));
+        }
+        q.add(new Pair(0,src));
+        int[] dist = new int[V];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src] = 0;
+        while(!q.isEmpty()){
+            int node = q.peek().node;
+            int distance = q.poll().distance;
+            for(Pair i:adj.get(node)){
+                int newNode = i.node;
+                int newDistance = i.distance;
+                if(newDistance+distance<dist[newNode]){
+                    dist[newNode] = newDistance+distance;
+                    q.offer(new Pair(newDistance+distance,newNode));
+                }
+            }
+        }
+        return dist;
+    }
+}
