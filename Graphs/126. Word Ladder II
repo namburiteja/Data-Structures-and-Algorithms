@@ -1,0 +1,63 @@
+class Solution {
+    String b;
+    HashMap<String,Integer> hm;
+    List<List<String>> ans;
+    public void dfs(String word,List<String> seq){
+        if(word.equals(b)){
+            List<String> dup = new ArrayList<>(seq);
+            Collections.reverse(dup);
+            ans.add(dup);
+            return;
+        }
+        int steps = hm.get(word);
+        int size = word.length();
+        for(int i=0;i<size;i++){
+            for(char j='a';j<='z';j++){
+                char[] array = word.toCharArray();
+                array[i] = j;
+                String newWord = new String(array);
+                if(hm.containsKey(newWord)){
+                    if(hm.get(newWord)+1 == steps){
+                        seq.add(newWord);
+                        dfs(newWord,seq);
+                        seq.remove(seq.size()-1);
+                    }
+                }
+            }
+        }
+    }
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        Set<String> hs = new HashSet<>(wordList);
+        Queue<String> q = new LinkedList<>();
+        b = beginWord;
+        q.add(b);
+        hm = new HashMap<>();
+        hm.put(b,1);
+        int size = b.length();
+        hs.remove(b);
+        while(!q.isEmpty()){
+            String word = q.poll();
+            int steps = hm.get(word);
+            if(word.equals(endWord)) break;
+            for(int i=0;i<size;i++){
+                for(char j='a';j<='z';j++){
+                    char[] array = word.toCharArray();
+                    array[i] = j;
+                    String newWord = new String(array);
+                    if(hs.contains(newWord)){
+                        hs.remove(newWord);
+                        q.add(newWord);
+                        hm.put(newWord,steps+1);
+                    }
+                }
+            }
+        }
+        ans = new ArrayList<>();
+        if(hm.containsKey(endWord)){
+            List<String> seq = new ArrayList<>();
+            seq.add(endWord);
+            dfs(endWord,seq);
+        }
+        return ans;
+    }
+}
