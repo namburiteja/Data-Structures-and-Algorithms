@@ -34,5 +34,5 @@ class Solution {
         return dist;
     }
 }
-TIME COMPLEXITY - O(V+E)
+TIME COMPLEXITY - O((V+E)log V)
 SPACE COMPLEXITY - O(V+E)
