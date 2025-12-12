@@ -1,0 +1,40 @@
+class Solution {
+    static class Pair{
+        int x;
+        int y;
+        int val;
+        Pair(int a,int b,int value){
+            x = a;
+            y = b;
+            val = value;
+        }
+    }
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;
+        if(grid[0][0]==1 || grid[n-1][n-1]==1) return -1;
+        boolean[][] visited = new boolean[n][n];
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(0,0,1));
+        visited[0][0] = true;
+        int[] dx = {-1,-1,-1,0,0,1,1,1};
+        int[] dy = {-1,0,1,-1,1,-1,0,1};
+        while(!q.isEmpty()){
+            int x = q.peek().x;
+            int y = q.peek().y;
+            int val = q.peek().val;
+            if(x==n-1 && y==n-1) return val;
+            q.poll();
+            for(int i=0;i<8;i++){
+                int newx = dx[i]+x;
+                int newy = dy[i]+y;
+                if(newx>=0 && newy>=0 && newx<n && newy<n && visited[newx][newy]==false && grid[newx][newy]==0){
+                    q.add(new Pair(newx,newy,val+1));
+                    visited[newx][newy] = true;
+                }
+            }
+        }
+        return -1;
+    }
+}
+TIME COMPLEXITY - O(N*N)
+SPACE COMPLEXITY - O(N*N)
