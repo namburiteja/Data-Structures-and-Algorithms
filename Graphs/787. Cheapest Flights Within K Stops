@@ -1,0 +1,45 @@
+class Solution {
+    static class Pair{
+        int stops,node,cost,x,y;
+        Pair(int a,int b,int c){
+            stops = a;
+            node = b;
+            cost = c;
+        }
+        Pair(int nnode,int costt){
+            x = nnode;
+            y = costt;
+        }
+    }
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        List<List<Pair>> adj = new ArrayList<>();
+        for(int i=0;i<n;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<flights.length;i++){
+            adj.get(flights[i][0]).add(new Pair(flights[i][1],flights[i][2]));
+        }
+        int[] dist = new int[n];
+        for(int i=0;i<n;i++) dist[i] = Integer.MAX_VALUE;
+        dist[src] = 0;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(0,src,0));
+        while(!q.isEmpty()){
+            int stops = q.peek().stops;
+            int node = q.peek().node;
+            int cost = q.peek().cost;
+            q.poll();
+            if(stops > k) continue;
+            for(Pair i:adj.get(node)){
+                int newNode = i.x;
+                int newCost = i.y;
+                if(cost+newCost<dist[newNode] && stops<=k){
+                    dist[newNode] = cost+newCost;
+                    q.add(new Pair(stops+1,newNode,cost+newCost));
+                }
+            }
+        }
+        if(dist[dst]==Integer.MAX_VALUE) return -1;
+        return dist[dst];
+    }
+}
+TIME COMPLEXITY - O(V+E)
+APCE COMPLEXITY - O(V+E)
