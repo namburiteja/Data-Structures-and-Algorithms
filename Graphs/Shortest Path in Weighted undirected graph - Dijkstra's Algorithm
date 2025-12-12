@@ -1,0 +1,56 @@
+class Solution {
+    static class Pair{
+        int distance;
+        int node;
+        Pair(int x,int y){
+            distance = x;
+            node = y;
+        }
+    }
+    public List<Integer> shortestPath(int n, int m, int edges[][]) {
+        PriorityQueue<Pair> pq = new PriorityQueue<>((c,d)->(c.distance-d.distance));
+        List<List<Pair>> adj = new ArrayList<>();
+        for(int i=0;i<=n;i++) adj.add(new ArrayList<>());
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(new Pair(edges[i][2],edges[i][1]));
+            adj.get(edges[i][1]).add(new Pair(edges[i][2],edges[i][0]));
+        }
+        int dist[] = new int[n+1];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        int[] shortPath = new int[n+1];
+        Arrays.fill(shortPath,-1);
+        dist[1] = 0;
+        pq.add(new Pair(0,1));
+        while(!pq.isEmpty()){
+            int node = pq.peek().node;
+            int distance = pq.peek().distance;
+            pq.poll();
+            if(distance > dist[node]) continue;
+            for(Pair i:adj.get(node)){
+                int newNode = i.node;
+                int newDistance = i.distance;
+                if(distance+newDistance < dist[newNode]){
+                    pq.add(new Pair(distance+newDistance,newNode));
+                    dist[newNode] = distance+newDistance;
+                    shortPath[newNode] = node;
+                }
+            }
+        }
+        List<Integer> res = new ArrayList<>();
+        if(dist[n]==Integer.MAX_VALUE){
+            res.add(-1);
+            return res;
+        }
+        int curr = n;
+        while(curr!=-1){
+            res.add(curr);
+            if(curr==1) break;
+            curr = shortPath[curr];
+        }
+        Collections.reverse(res);
+        res.add(0,dist[n]);
+        return res;
+    }
+}
+TIME COMPLEXITY - O(E+log V)
+SPACE COMPLEXITY - O(V+E)
