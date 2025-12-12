@@ -1,0 +1,44 @@
+class Solution {
+    static class Pair{
+        int x,y,val;
+        Pair(int a,int b,int c){
+            x = a;
+            y = b;
+            val = c;
+        }
+    }
+    public int minimumEffortPath(int[][] heights) {
+        int m = heights.length;
+        int n = heights[0].length;
+        PriorityQueue<Pair> pq = new PriorityQueue<>((c,d)->c.val-d.val);
+        int[][] dist = new int[m][n];
+        for(int i=0;i<m;i++) Arrays.fill(dist[i],Integer.MAX_VALUE);
+        dist[0][0] = 0;
+        pq.add(new Pair(0,0,0));
+        int[] dx = {-1,0,1,0};
+        int[] dy = {0,-1,0,1};
+        while(!pq.isEmpty()){
+            int x = pq.peek().x;
+            int y = pq.peek().y;
+            int val = pq.peek().val;
+            pq.poll();
+            if(val > dist[x][y]) continue;
+            if(x==m-1 && y==n-1) return val;
+            for(int i=0;i<4;i++){
+                int newx = x+dx[i];
+                int newy = y+dy[i];
+                if(newx>=0 && newy>=0 && newx<m && newy<n){
+                    int newval = Math.abs(heights[x][y]-heights[newx][newy]);
+                    int newvall = Math.max(newval,val);
+                    if(newvall < dist[newx][newy]){
+                        dist[newx][newy] = newvall;
+                        pq.add(new Pair(newx,newy,newvall));
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+}
+TIME COMPLEXITY - O(log(m*n)
+SPACE COMPLEXITY - O(m*n)
