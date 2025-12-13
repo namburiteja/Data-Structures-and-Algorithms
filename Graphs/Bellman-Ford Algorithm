@@ -1,0 +1,27 @@
+class Solution {
+    public int[] bellmanFord(int V, int[][] edges, int src) {
+        int inf = (int)1e8;
+        int[] dist = new int[V];
+        Arrays.fill(dist,inf);
+        dist[src] = 0;
+        for(int i=0;i<V-1;i++){
+            for(int j=0;j<edges.length;j++){
+                int u = edges[j][0];
+                int v = edges[j][1];
+                int wt = edges[j][2];
+                if(dist[u]!=inf && dist[u]+wt < dist[v]){
+                    dist[v] = dist[u]+wt;
+                }
+            }
+        }
+        for(int i=0;i<edges.length;i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            if(dist[u]!=inf && dist[u]+wt < dist[v]) return new int[]{-1};
+        }
+        return dist;
+    }
+}
+TIME COMPLEXITY - O(V*E)
+SPACE COMPLEXITY - O(V)
