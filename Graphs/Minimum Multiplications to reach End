@@ -1,0 +1,27 @@
+class Solution {
+    int minimumMultiplications(int[] arr, int start, int end) {
+        int mod = 100000;
+        int n = arr.length;
+        int dist[] = new int[mod];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{start,0});
+        dist[start] = 0;
+        while(!q.isEmpty()){
+            int x = q.peek()[0];
+            int stops = q.poll()[1];
+            if(x==end) return stops;
+            for(int i:arr){
+                int val = (x*i)%mod;
+                if(val==end) return stops+1;
+                if(stops + 1 < dist[val]){
+                    dist[val] = stops+1;   
+                    q.add(new int[]{val,stops+1});
+                }
+            }
+        }
+        return -1;
+    }
+}
+TIME COMPLEXITY - O(100000* n) - worst time complexity
+SPACE COMPLEXITY - O(100000)
