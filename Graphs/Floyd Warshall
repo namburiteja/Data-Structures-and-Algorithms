@@ -13,4 +13,4 @@ class Solution {
     }
 }
 TIME COMPLEXITY - O(N*N*N)
-SPACE COMPLEXITY - O(1)
+SPACE COMPLEXITY - O(N*N)
