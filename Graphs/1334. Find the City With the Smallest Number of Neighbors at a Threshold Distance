@@ -1,0 +1,44 @@
+class Solution {
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] adjMatrix = new int[n][n];
+        int inf = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j)
+                {
+                    adjMatrix[i][j] = 0;
+                    continue;
+                }
+                adjMatrix[i][j] = inf;
+            }
+        }   
+        for(int i=0;i<edges.length;i++){
+            adjMatrix[edges[i][0]][edges[i][1]] = edges[i][2];
+            adjMatrix[edges[i][1]][edges[i][0]] = edges[i][2];
+        }
+        for(int via=0;via<n;via++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    if(adjMatrix[i][via]<inf && adjMatrix[via][j]<inf){
+                        adjMatrix[i][j] = Math.min(adjMatrix[i][j],adjMatrix[i][via]+adjMatrix[via][j]);
+                    }
+                }
+            }
+        }
+        int countCity = n;
+        int cityNo = -1;
+        for(int i=0;i<n;i++){
+            int cnt = 0;
+            for(int j=0;j<n;j++){
+                if(adjMatrix[i][j]<=distanceThreshold) cnt++;
+            }
+            if(cnt<=countCity){
+                cityNo = i;
+                countCity = cnt;
+            }
+        }
+        return cityNo;
+    }
+}
+TIME COMPLEXITY - O(n*n*n)
+SPACE COMPLEXITY - O(n*n)
