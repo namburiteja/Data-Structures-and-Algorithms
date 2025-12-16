@@ -1,0 +1,48 @@
+class Solution {
+    static class Disjoint{
+        int[] rank;
+        int[] parent;
+        Disjoint(int size){
+            rank = new int[size];
+            parent = new int[size];
+            for(int i=0;i<size;i++) parent[i] = i;
+        }
+        int findParent(int x){
+            if(x==parent[x]) return x;
+            return parent[x] = findParent(parent[x]);//Path Compression
+        }
+        void unionByRank(int u,int v){
+            int p_u = findParent(u);
+            int p_v = findParent(v);
+            if(p_u==p_v) return;
+            if(rank[p_u] < rank[p_v]){
+                parent[p_u] = p_v;
+            }else if(rank[p_v] < rank[p_u]){
+                parent[p_v] = p_u;
+            }else{
+                parent[p_v] = p_u;
+                rank[p_u]++;
+            }
+        }
+        boolean areTheyConn(int x,int y){
+            return findParent(x)==findParent(y);
+        }
+    }
+    static int kruskalsMST(int V, int[][] edges) {
+        Arrays.sort(edges,(c,d)->c[2]-d[2]);
+        int sum = 0;
+        Disjoint ds = new Disjoint(V);
+        for(int i=0;i<edges.length;i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            if(!ds.areTheyConn(u,v)){
+                sum+=wt;
+                ds.unionByRank(u,v);
+            }
+        }
+        return sum;
+    }
+}
+TIME COMPLEXITY - O(E log E)
+SPACE COMPLEXITY - O(V)
