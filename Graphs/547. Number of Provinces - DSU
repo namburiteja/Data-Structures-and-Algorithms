@@ -1,0 +1,42 @@
+class Solution {  
+    static class Disjoint{
+        int[] rank;
+        int[] parent;
+        Disjoint(int n){
+            rank = new int[n];
+            parent = new int[n];
+            for(int i=0;i<n;i++) parent[i] = i;
+        }
+        int findParent(int x){
+            if(x==parent[x]) return x;
+            return parent[x] = findParent(parent[x]);
+        }
+        void unionByRank(int u,int v){
+            int p_u = findParent(u);
+            int p_v = findParent(v);
+            if(p_u == p_v) return;
+            if(rank[p_u] < rank[p_v]) parent[p_u] = p_v;
+            else if(rank[p_v] < rank[p_u]) parent[p_v] = p_u;
+            else{
+                parent[p_v] = p_u;
+                rank[p_u]++;
+            }
+        }
+    }
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
+        Disjoint ds = new Disjoint(n);
+        int provinces = 0;        
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(isConnected[i][j]==1){
+                    ds.unionByRank(i,j);
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(ds.parent[i]==i) provinces++;
+        }
+        return provinces;
+    }
+}
