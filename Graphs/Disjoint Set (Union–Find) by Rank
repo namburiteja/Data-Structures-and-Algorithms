@@ -1,0 +1,46 @@
+class Disjoint{
+    int[] parent;
+    int[] rank;
+    Disjoint(int a){
+        parent = new int[a+1];
+        rank = new int[a+1];
+        size = new int[a+1];
+        for(int i=0;i<a+1;i++){
+            parent[i] = i;
+        }
+    }
+    int findParent(int x){
+        if(x==parent[x]) return x;
+        return parent[x] = findParent(parent[x]);
+    }
+    void union(int u,int v){
+        int ulp_u = findParent(u);
+        int ulp_v = findParent(v);
+        if(ulp_u == ulp_v) return;
+        if(rank[ulp_u] < rank[ulp_v]){
+            parent[ulp_u] = ulp_v;
+        }
+        else if(rank[ulp_v]< rank[ulp_u]){
+            parent[ulp_v] = ulp_u;
+        }else{
+            parent[ulp_u] = ulp_v;
+            rank[ulp_v]++;
+        }
+    }
+    boolean areTheyConnected(int x,int y){
+        return (findParent(x)==findParent(y));
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        Disjoint ds = new Disjoint(7);
+        ds.union(1,2);
+        ds.union(2,3);
+        ds.union(4,5);
+        ds.union(6,7);
+        System.out.println(ds.areTheyConnected(3,7));
+        ds.union(5,6);
+        ds.union(3,7);
+        System.out.print(ds.areTheyConnected(3,7));
+    }
+}
