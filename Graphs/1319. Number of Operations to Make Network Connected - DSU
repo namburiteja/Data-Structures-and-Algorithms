@@ -1,0 +1,47 @@
+class Solution {
+    static class Disjoint{
+        int[] rank;
+        int[] parent;
+        Disjoint(int n){
+            rank = new int[n];
+            parent = new int[n];
+            for(int i=0;i<n;i++) parent[i] = i;
+        }
+        int findParent(int x){
+            if(x==parent[x]) return x;
+            return parent[x] = findParent(parent[x]);  
+        }
+        void unionByRank(int u,int v){
+            int pu = findParent(u);
+            int pv = findParent(v);
+            if(pu==pv)return;
+            if(rank[pu] < rank[pv]) parent[pu] = pv;
+            else if(rank[pv] < rank[pu]) parent[pv] = pu;
+            else{
+                parent[pv] = pu;
+                rank[pu]++;
+            }
+        }
+        boolean areTheyConn(int x,int y){
+            return findParent(x)==findParent(y);   
+        }
+    }
+    public int makeConnected(int n, int[][] connections) {
+        Disjoint ds = new Disjoint(n);
+        int emptySlots = 0;
+        int reqConn = 0;
+        int x = connections.length;
+        for(int i=0;i<x;i++){
+            int u = connections[i][0];
+            int v = connections[i][1];
+            if(!ds.areTheyConn(u,v)) ds.unionByRank(u,v);
+            else emptySlots++;
+        }
+        for(int i=0;i<n;i++) if(ds.parent[i]==i) reqConn++;
+        reqConn--;
+        if(emptySlots>=reqConn) return reqConn;
+        return -1;
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n)
