@@ -1,0 +1,60 @@
+class Solution {
+    static class Disjoint{
+        int[] rank;
+        int[] parent;
+        Disjoint(int n){
+            rank = new int[n];
+            parent = new int[n];
+            for(int i=0;i<n;i++) parent[i] = i;
+        }
+        int findParent(int x){
+            if(x==parent[x]) return x;
+            return parent[x] = findParent(parent[x]);
+        }
+        void unionByRank(int u,int v){
+            int pu = findParent(u);
+            int pv = findParent(v);
+            if(pu==pv) return;
+            if(rank[pu] < rank[pv]) parent[pu] = pv;
+            else if (rank[pv] < rank[pu]) parent[pv] = pu;
+            else{
+                parent[pv] = pu;
+                rank[pu]++;
+            }
+        }
+    }
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        HashMap<String,Integer> hm = new HashMap<>();
+        int n = accounts.size();
+        Disjoint ds = new Disjoint(n);
+        for(int i=0;i<n;i++){
+            int x =0;
+            for(String j:accounts.get(i)){
+                if(x==0 || x==1) x++;
+                if(x==1) continue;
+                if(hm.containsKey(j)){
+                    ds.unionByRank(i,hm.get(j));
+                }else{
+                    hm.put(j,i);
+                }
+            }
+        }
+        List<List<String>> mergedEmails = new ArrayList<>();
+        for(int i=0;i<n;i++) mergedEmails.add(new ArrayList<>());
+        for(String s:hm.keySet()){
+            mergedEmails.get(ds.findParent(hm.get(s))).add(s);
+        }
+        List<List<String>> res = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(mergedEmails.get(i).isEmpty()) continue;
+            List<String> temp = new ArrayList<>();
+            temp.add(accounts.get(i).get(0));
+            Collections.sort(mergedEmails.get(i));
+            temp.addAll(mergedEmails.get(i));
+            res.add(temp);
+        }
+        return res;
+    }
+}
+TIME COMPLEXITY - O(N + M log M)
+SPACE COMPLEXITY - O(N+M)
