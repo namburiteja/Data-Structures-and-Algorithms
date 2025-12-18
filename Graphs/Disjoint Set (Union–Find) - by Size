@@ -22,10 +22,10 @@ class Disjoint{
         if(ulp_u == ulp_v) return;
         if(size[ulp_u] < size[ulp_v]){
             size[ulp_v] = size[ulp_v] + size[ulp_u];
-            parent[ulp_v] = ulp_u;
+            parent[ulp_u] = ulp_v;
         }else{
             size[ulp_u] = size[ulp_u] + size[ulp_v];
-            parent[ulp_u] = ulp_v;
+            parent[ulp_v] = ulp_u;
         }
     }
     boolean areTheyConnected(int x,int y){
