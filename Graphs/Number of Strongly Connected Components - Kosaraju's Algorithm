@@ -1,0 +1,48 @@
+class Solution {
+    void dfs(int start,boolean[] visited,ArrayList<ArrayList<Integer>> adj,Stack<Integer> st){
+        visited[start] = true;
+        for(int i:adj.get(start)){
+            if(visited[i]==false){
+                dfs(i,visited,adj,st);   
+            }
+        }
+        st.push(start);
+    }
+    void dfs2(int start,boolean[] visited,List<List<Integer>> adj){
+        visited[start] = true;
+        for(int i:adj.get(start)){
+            if(visited[i]==false){
+                dfs2(i,visited,adj);
+            }
+        }
+    }
+    public int kosaraju(ArrayList<ArrayList<Integer>> adj) {
+        int n = adj.size();
+        Stack<Integer> st = new Stack<>();
+        boolean[] visited = new boolean[n];
+        for(int i=0;i<n;i++){
+            if(visited[i]==false){
+                dfs(i,visited,adj,st);
+            }
+        }
+        List<List<Integer>> revAdj = new ArrayList<>();
+        for(int i=0;i<n;i++) revAdj.add(new ArrayList<>());
+        for(int i=0;i<n;i++){
+            for(int j:adj.get(i)){
+                revAdj.get(j).add(i);
+            }
+        }
+        int scc = 0;
+        boolean[] visited2 = new boolean[n];
+        while(!st.isEmpty()){
+            int x = st.pop();
+            if(visited2[x]==false){
+                dfs2(x,visited2,revAdj);
+                scc++;
+            }
+        }
+        return scc;
+    }
+}
+TIME COMPLEXITY - O(V+E)
+SPACE COMPLEXITY - O(V+E)
