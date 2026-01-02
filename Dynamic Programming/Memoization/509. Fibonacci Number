@@ -1,0 +1,17 @@
+class Solution {
+    int fibbo(int n,int[] memo){
+        if(n<=1) return n;
+        if(memo[n]!=-1) return memo[n];
+        int a = fibbo(n-1,memo);
+        int b = fibbo(n-2,memo);
+        memo[n] = a+b;
+        return memo[n];
+    }
+    public int fib(int n) {
+        int[] memo = new int[n+1];
+        Arrays.fill(memo,-1);
+        return fibbo(n,memo);
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n+n)
