@@ -1,0 +1,10 @@
+class Solution {
+    public int climbStairs(int n) {
+        if(n==1 || n==2) return n;
+        int a = climbStairs(n-1);
+        int b = climbStairs(n-2);
+        return a+b;
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
