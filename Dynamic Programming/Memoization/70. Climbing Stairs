@@ -1,0 +1,16 @@
+class Solution {
+    int climbo(int[] memo,int n){
+        if(n==1 || n==2) return n;
+        if(memo[n]!=-1) return memo[n];
+        int a = climbo(memo,n-1);
+        int b = climbo(memo,n-2);
+        return memo[n] = a+b;
+    }
+    public int climbStairs(int n) {
+        int[] memo = new int[n+1];
+        Arrays.fill(memo,-1);
+        return climbo(memo,n);
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n+n)
