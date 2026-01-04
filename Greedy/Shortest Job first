@@ -1,0 +1,15 @@
+class Solution {
+    static int solve(int bt[]) {
+        Arrays.sort(bt);
+        int waitTime = 0;
+        int timer = 0;
+        int n = bt.length;
+        for(int i=0;i<n;i++){
+            waitTime+=timer;
+            timer+=bt[i];
+        }
+        return waitTime/n;
+    }
+}
+TIME COMPLEXITY - O(nlogn)
+SPACE COMPLEXITY - O(1)
