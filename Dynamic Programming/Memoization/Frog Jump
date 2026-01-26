@@ -1,0 +1,18 @@
+class Solution {
+    public int frogJumping(int[] height,int i,int[] memo){
+        if(i<=0) return 0;
+        if(memo[i]!=-1) return memo[i];
+        int left = frogJumping(height,i-1,memo) + Math.abs(height[i-1]-height[i]);
+        int right = Integer.MAX_VALUE;
+        if(i > 1) right = frogJumping(height,i-2,memo) + Math.abs(height[i-2] - height[i]);
+        return memo[i] = Math.min(left,right);
+    }
+    int minCost(int[] height) {
+        int n = height.length;
+        int[] memo = new int[n];
+        Arrays.fill(memo,-1);
+        return frogJumping(height,height.length-1,memo);
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n)+O(n)
