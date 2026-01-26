@@ -1,0 +1,17 @@
+class Solution {
+    int minCost(int[] height) {
+        int n = height.length;
+        int a = 0,b = 0;
+        if(n>1) b = Math.abs(height[1] - height[0]);
+        for(int i=2;i<n;i++){
+            int left = b + Math.abs(height[i] - height[i-1]);
+            int right = a + Math.abs(height[i] - height[i-2]);
+            int c = Math.min(left,right);
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(1)
