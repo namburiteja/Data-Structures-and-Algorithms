@@ -1,0 +1,14 @@
+class Solution {
+    public int frogJumping(int[] height,int i){
+        if(i<=0) return 0;
+        int left = frogJumping(height,i-1) + Math.abs(height[i-1]-height[i]);
+        int right = Integer.MAX_VALUE;
+        if(i > 1) right = frogJumping(height,i-2) + Math.abs(height[i-2] - height[i]);
+        return Math.min(left,right);
+    }
+    int minCost(int[] height) {
+        return frogJumping(height,height.length-1);
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
