@@ -1,0 +1,23 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        int[] height = {30, 10, 60, 10, 60, 50};
+        int k = 2;
+        int n = height.length;
+        int[] memo = new int[n];
+        memo[0] = 0;
+        for(int i=1;i<n;i++){
+            int mini = Integer.MAX_VALUE;
+            for(int j=1;j<=k;j++){
+                if(i-j >= 0){
+                    int know = memo[i-j] + Math.abs(height[i] - height[i-j]);
+                    mini = Math.min(mini,know);
+                }
+            }
+            memo[i] = mini;
+        }
+        System.out.print(memo[n-1]);
+    }
+}
+TIME COMPLEXITY - O(n*k)
+SPACE COMPLEXITY - O(n)
