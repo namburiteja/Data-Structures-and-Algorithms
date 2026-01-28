@@ -1,0 +1,18 @@
+class Solution {
+    private int houseRobbing(int[] nums,int i,int[] memo){
+        if(i==0) return nums[0];
+        if(i<0) return 0;
+        if(memo[i]!=-1) return memo[i];
+        int take = nums[i] + houseRobbing(nums,i-2,memo);
+        int nottake = houseRobbing(nums,i-1,memo);
+        return memo[i] = Math.max(take,nottake);
+    }
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] memo = new int[n];
+        Arrays.fill(memo,-1);
+        return houseRobbing(nums,n-1,memo);
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n)
