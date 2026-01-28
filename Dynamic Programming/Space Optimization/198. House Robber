@@ -1,0 +1,18 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int a = nums[0];
+        if(n==1) return a;
+        int b = Math.max(a,nums[1]);
+        for(int i=2;i<n;i++){
+            int take = nums[i] + a;
+            int nottake = b;
+            int c = Math.max(take,nottake);
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(1)
