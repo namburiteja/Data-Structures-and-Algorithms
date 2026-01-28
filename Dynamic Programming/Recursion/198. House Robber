@@ -1,0 +1,15 @@
+class Solution {
+    private int houseRobbing(int[] nums,int i){
+        if(i==0) return nums[0];
+        if(i<0) return 0;
+        int take = nums[i] + houseRobbing(nums,i-2);
+        int nottake = houseRobbing(nums,i-1);
+        return Math.max(take,nottake);
+    }
+    public int rob(int[] nums) {
+        int n = nums.length;
+        return houseRobbing(nums,n-1);
+    }
+}
+TIME COMPLEXITY - O(2*n)
+SPACE COMPLEXITY - O(n)+O(n)
