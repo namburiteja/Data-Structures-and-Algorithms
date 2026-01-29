@@ -1,0 +1,24 @@
+class Solution {
+    public int houseRob(int[] nums,int i){
+        if(i==0) return nums[i];
+        if(i==1) return Math.max(nums[i],nums[0]);
+        int pick = nums[i] + houseRob(nums,i-2);
+        int notpick = houseRob(nums,i-1);
+        return Math.max(pick,notpick);
+    } 
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n==1) return nums[0];
+        int[] oneArr = new int[n-1];
+        int[] twoArr = new int[n-1];
+        for(int i=0;i<n-1;i++){
+            oneArr[i] = nums[i];
+            twoArr[i] = nums[i+1];
+        }
+        int one = houseRob(oneArr,n-2);
+        int two = houseRob(twoArr,n-2);
+        return Math.max(one,two);
+    }
+}
+TIME COMPLEXITY - O(2**n)+O(2**n)
+SPACE COMPLEXITY - O(4n)
