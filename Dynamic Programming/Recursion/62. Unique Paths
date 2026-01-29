@@ -1,0 +1,14 @@
+class Solution {
+    public int noOfPaths(int m,int n){
+        if(m==0 & n==0) return 1;
+        int up=0,left=0;
+        if(m>0) up = noOfPaths(m-1,n);
+        if(n>0) left = noOfPaths(m,n-1);
+        return up+left;
+    }
+    public int uniquePaths(int m, int n) {
+        return noOfPaths(m-1,n-1);
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
