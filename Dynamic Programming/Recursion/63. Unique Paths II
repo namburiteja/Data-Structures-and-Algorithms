@@ -13,5 +13,5 @@ class Solution {
         return noOfPaths(obstacleGrid,m-1,n-1);
     }
 }
-TIME COMPLEXITY - O(2**n)
-SPACE COMPLEXITY - O(n)
+TIME COMPLEXITY - O(2**m*n)
+SPACE COMPLEXITY - O(m*n)
