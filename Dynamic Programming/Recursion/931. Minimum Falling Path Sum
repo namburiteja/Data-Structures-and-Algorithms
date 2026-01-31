@@ -1,0 +1,23 @@
+class Solution { 
+    public int minSum(int[][] grid,int i,int j){
+        if(i<0 || j<0) return 0; 
+        if(i==0) return grid[i][j];
+        int left = Integer.MAX_VALUE;
+        int right = Integer.MAX_VALUE;
+        int up = grid[i][j] + minSum(grid,i-1,j);
+        if(j-1>=0) left = grid[i][j] + minSum(grid,i-1,j-1);
+        if(j+1 < grid.length) right = grid[i][j] + minSum(grid,i-1,j+1);
+        return Math.min(up,Math.min(left,right));
+    } 
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int mini = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            int ans = minSum(matrix,n-1,i);
+            mini = Math.min(ans,mini);
+        }
+        return mini;
+    }
+}
+TIME COMPLEXITY - O(3**m*n)
+SPACE COMPLEXITY - O(m*n)
