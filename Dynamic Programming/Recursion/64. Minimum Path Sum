@@ -1,0 +1,16 @@
+class Solution {
+    public int minimumSum(int[][] nums,int i,int j){
+        if(i==0 && j==0) return nums[i][j];
+        if(i<0 || j<0) return (int) Math.pow(10,9);
+        int up = nums[i][j]+minimumSum(nums,i-1,j);
+        int left = nums[i][j]+minimumSum(nums,i,j-1);
+        return Math.min(up,left);
+    }
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        return minimumSum(grid,m-1,n-1);
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
