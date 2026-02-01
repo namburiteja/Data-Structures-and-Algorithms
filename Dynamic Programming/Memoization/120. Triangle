@@ -1,0 +1,18 @@
+class Solution {
+    public int minimumSum(List<List<Integer>> triangle,int i,int j,Integer[][] dp){
+        if(i==triangle.size()-1){
+            return triangle.get(i).get(j);
+        }
+        if(dp[i][j]!=null) return dp[i][j];
+        int down = triangle.get(i).get(j) + minimumSum(triangle,i+1,j,dp);
+        int right = triangle.get(i).get(j) + minimumSum(triangle,i+1,j+1,dp);
+        return dp[i][j] = Math.min(down,right);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        Integer[][] dp = new Integer[n][n];
+        return minimumSum(triangle,0,0,dp);
+    }
+}
+TIME COMPLEXITY - O(n*n)
+SPACE COMPLEXITY - O(n*n)
