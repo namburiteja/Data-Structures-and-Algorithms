@@ -1,0 +1,21 @@
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        Integer[] dp = new Integer[n];
+        for(int j=0;j<n;j++){
+            dp[j] = triangle.get(n-1).get(j);
+        }
+        for(int i=n-2;i>=0;i--){
+            Integer[] temp = new Integer[n];
+            for(int j=i;j>=0;j--){
+                int down = triangle.get(i).get(j) + dp[j];
+                int right = triangle.get(i).get(j) + dp[j+1];
+                temp[j] = Math.min(down,right);
+            }
+            dp = temp;
+        }
+        return dp[0];
+    }
+}
+TIME COMPLEXITY - O(n*n)
+SPACE COMPLEXITY - O(n)
