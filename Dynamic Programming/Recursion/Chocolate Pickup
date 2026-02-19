@@ -1,0 +1,24 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int cherryPick(int n,int c,int i,int j1,int j2,int[][] grid){
+		if(j1<0 || j2<0 || j1>=c || j2>=c) return (int)-1e9;
+		if(i==n-1){
+			return (j1==j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+		}
+		int curr = (j1==j2) ? grid[i][j1] : grid[i][j1]+grid[i][j2];
+		int maxi = (int)-1e9;
+		for(int k=-1;k<=1;k++){
+			for(int l=-1;l<=1;l++){
+				int ans = curr + cherryPick(n,c,i+1,k+j1,l+j2,grid);
+				maxi = Math.max(ans,maxi); 
+			}
+		}
+		return maxi;
+	}
+	public static int maximumChocolates(int r, int c, int[][] grid) {
+		return cherryPick(r,c,0,0,c-1,grid);
+	}
+}
+TIME COMPLEXITY - O(9**r)
+SPACE COMPLEXITY - O(r)
