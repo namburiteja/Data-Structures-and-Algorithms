@@ -1,0 +1,27 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int cherryPick(int n,int c,int i,int j1,int j2,int[][] grid,int[][][] dp){
+		if(j1<0 || j2<0 || j1>=c || j2>=c) return (int)-1e9;
+		if(dp[i][j1][j2]!=-1) return dp[i][j1][j2];
+		if(i==n-1){
+			return (j1==j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+		}
+		int curr = (j1==j2) ? grid[i][j1] : grid[i][j1]+grid[i][j2];
+		int maxi = (int)-1e9;
+		for(int k=-1;k<=1;k++){
+			for(int l=-1;l<=1;l++){
+				int ans = curr + cherryPick(n,c,i+1,k+j1,l+j2,grid,dp);
+				maxi = Math.max(ans,maxi); 
+			}
+		}
+		return dp[i][j1][j2] = maxi;
+	}
+	public static int maximumChocolates(int r, int c, int[][] grid) {
+		int[][][] dp = new int[r][c][c];
+		for(int[][] a:dp) for(int[] b:a) Arrays.fill(b,-1);
+		return cherryPick(r,c,0,0,c-1,grid,dp);
+	}
+}
+TIME COMPLEXITY - O(r*c*c)
+SPACE COMPLEXITY - O(r*c*c)
