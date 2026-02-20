@@ -1,0 +1,22 @@
+class Solution {
+    static Boolean isSubsetSum(int arr[], int sum) {
+        int n = arr.length;
+        int[] dp = new int[sum+1];
+        dp[0] = 1;
+        if(arr[0]<=sum) dp[arr[0]] = 1;
+        for(int i=1;i<n;i++){
+            int[] temp = new int[sum+1];
+            temp[0] = 1; 
+            for(int tar=1;tar<=sum;tar++){
+                boolean nottake = (dp[tar]==1);
+                boolean take = false;
+                if(tar>=arr[i]) take = (dp[tar-arr[i]]==1);
+                temp[tar] = (take || nottake) ? 1 : 0;
+            }
+            dp = temp;
+        }
+        return (dp[sum]==1);
+    }
+} 
+TIME COMPLEXITY - O(n*sum)
+SPACE COMPLEXITY - O(sum)
