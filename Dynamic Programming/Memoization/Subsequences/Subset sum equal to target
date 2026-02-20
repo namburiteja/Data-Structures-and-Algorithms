@@ -1,0 +1,20 @@
+class Solution {
+    static boolean SubsetSum(int[] arr,int i,int target,int[][] dp){
+        if(target==0) return true;
+        if(i==0) return (target==arr[i]);
+        if(dp[i][target]!=-1) return dp[i][target] == 1; 
+        boolean nottake = SubsetSum(arr,i-1,target,dp);
+        boolean take = false;
+        if(target>=arr[i]) take = SubsetSum(arr,i-1,target-arr[i],dp);
+        dp[i][target] = (take || nottake) ? 1 : 0;
+        return take || nottake;
+    }
+    static Boolean isSubsetSum(int arr[], int sum) {
+        int n = arr.length;
+        int[][] dp = new int[n][sum+1];
+        for(int i=0;i<n;i++) for(int j=0;j<sum+1;j++) dp[i][j] = -1;
+        return SubsetSum(arr,n-1,sum,dp);
+    }
+} 
+TIME COMPLEXITY - O(n*sum)
+SPACE COMPLEXITY - O(n*sum) + O(n)
