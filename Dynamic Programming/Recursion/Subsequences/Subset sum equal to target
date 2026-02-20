@@ -1,0 +1,15 @@
+class Solution {
+    static boolean SubsetSum(int[] arr,int i,int target){
+        if(target==0) return true;
+        if(i==0) return (target==arr[i]);
+        boolean nottake = SubsetSum(arr,i-1,target);
+        boolean take = false;
+        if(target>=arr[i]) take = SubsetSum(arr,i-1,target-arr[i]);
+        return take || nottake;
+    }
+    static Boolean isSubsetSum(int arr[], int sum) {
+        return SubsetSum(arr,arr.length-1,sum);
+    }
+}
+  TIME COMPLEXITY - O(2**n)
+  SPACE COMPLEXITY - O(n)  
