@@ -1,0 +1,19 @@
+class Solution {
+    public boolean canBeParted(int[] arr,int i,int target){
+        if(target==0) return true;
+        if(i==0) return target==arr[i];
+        boolean nottake = canBeParted(arr,i-1,target);
+        boolean take = false;
+        if(target>=arr[i]) take = canBeParted(arr,i-1,target-arr[i]);
+        return take || nottake;
+    }
+    public boolean canPartition(int[] nums) {
+        int s=0;
+        int n = nums.length;
+        for(int i=0;i<n;i++) s+=nums[i];
+        if(s%2!=0) return false;
+        return canBeParted(nums,n-1,s/2);
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
