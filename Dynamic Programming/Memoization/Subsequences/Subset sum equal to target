@@ -1,7 +1,10 @@
 class Solution {
     static boolean SubsetSum(int[] arr,int i,int target,int[][] dp){
         if(target==0) return true;
-        if(i==0) return (target==arr[i]);
+        if(i==0){
+            dp[i][target] = (target==arr[i]) ? 1 : 0;
+            return target==arr[i];
+        }
         if(dp[i][target]!=-1) return dp[i][target] == 1; 
         boolean nottake = SubsetSum(arr,i-1,target,dp);
         boolean take = false;
