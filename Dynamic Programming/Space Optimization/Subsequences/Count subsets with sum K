@@ -1,0 +1,23 @@
+class Solution {
+    public int perfectSum(int[] arr, int target) {
+        int n = arr.length;
+        int[] dp = new int[target+1];
+        if(arr[0]==0) dp[0] = 2;
+        else dp[0] = 1;
+        if(arr[0] != 0 && arr[0] <= target) dp[arr[0]] = 1;
+        for(int i=1;i<n;i++){
+            int[] temp = new int[target+1];
+            temp[0] = 0;
+            for(int tar=0;tar<target+1;tar++){
+                int nottake = dp[tar];
+                int take = 0;
+                if(arr[i]<=tar) take = dp[tar-arr[i]];
+                temp[tar] = take+nottake;
+            }
+            dp = temp;
+        }
+        return dp[target];
+    }
+}
+TIME COMPLEXITY - O(n*target)
+SPACE COMPLEXITY - O(target)
