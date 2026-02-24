@@ -1,0 +1,22 @@
+class Solution {
+    public int noOfSubsets(int i,int target,int[] arr,int[][] dp){
+        if(i==0){
+            if(target==0 && arr[0]==0) return 2;
+            if(target==0 || target==arr[0]) return 1;
+            return 0;
+        }
+        if(dp[i][target]!=-1) return dp[i][target];
+        int nottake = noOfSubsets(i-1,target,arr,dp);
+        int take = 0;
+        if(arr[i]<=target) take = noOfSubsets(i-1,target-arr[i],arr,dp);
+        return dp[i][target] = take+nottake;
+    }
+    public int perfectSum(int[] nums, int target) {
+        int n = nums.length;
+        int[][] dp = new int[n][target+1];
+        for(int i=0;i<n;i++) for(int j=0;j<target+1;j++) dp[i][j] = -1;
+        return noOfSubsets(n-1,target,nums,dp);
+    }
+}
+TIME COMPLEXITY - O(n*target)
+SPACE COMPLEXITY - O(n*target)+O(n) 
