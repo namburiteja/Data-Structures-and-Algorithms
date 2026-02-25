@@ -1,0 +1,24 @@
+class Solution {
+    public int countPartitions(int[] arr, int diff) {
+        int total = Arrays.stream(arr).sum();
+        int n = arr.length;
+        int x = total-diff;
+        if(x < 0 || (x%2!=0)) return 0; 
+        int target = (x)/2;
+        int[][] dp = new int[n][target+1];
+        if(arr[0]==0) dp[0][0] = 2;
+        else dp[0][0] = 1;
+        if(arr[0]!=0 && arr[0]<=target) dp[0][arr[0]] = 1;
+        for(int i=1;i<n;i++){
+            for(int tar=0;tar<target+1;tar++){
+                int nottake = dp[i-1][tar];
+                int take = 0;
+                if(tar>=arr[i]) take = dp[i-1][tar-arr[i]];
+                dp[i][tar] = take+nottake;
+            }
+        }
+        return dp[n-1][target];
+    }
+}
+TIME COMPLEXITY - O(n*target)
+SPACE COMPLEXITY - O(n*target)
