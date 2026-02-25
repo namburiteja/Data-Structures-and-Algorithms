@@ -19,3 +19,5 @@ class Solution {
         return count(arr,n-1,s2);
     }
 }
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(n)
