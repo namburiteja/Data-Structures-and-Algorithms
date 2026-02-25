@@ -1,0 +1,26 @@
+class Solution {
+    public int count(int[] arr,int i,int target,int[][] dp){
+        if(i==0){
+            if(target==0 && arr[0]==0) return 2;
+            if(target==0 || target==arr[0]) return 1;
+            return 0;
+        }
+        if(dp[i][target]!=-1) return dp[i][target];
+        int nottake = count(arr,i-1,target,dp);
+        int take = 0;
+        if(target>=arr[i]) take = count(arr,i-1,target-arr[i],dp);
+        return dp[i][target] = take+nottake;
+    }
+    public int countPartitions(int[] arr, int diff) {
+        int total = Arrays.stream(arr).sum();
+        int n = arr.length;
+        int x = total-diff;
+        if(x < 0 || (x%2!=0)) return 0; 
+        int s2 = (x)/2;
+        int[][] dp = new int[n][s2+1];
+        for(int i=0;i<n;i++) for(int j=0;j<s2+1;j++) dp[i][j] = -1;
+        return count(arr,n-1,s2,dp);
+    }
+}
+TIME COMPLEXITY - O(n*target)
+SPACE COMPLEXITY - O(n*target)+O(n)
