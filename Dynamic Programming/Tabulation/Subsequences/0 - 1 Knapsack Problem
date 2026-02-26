@@ -1,0 +1,21 @@
+class Solution {
+    public int knapsack(int W, int arr[], int wt[]) {
+        int n = arr.length;
+        int[][] dp = new int[n][W+1];
+        for(int i=0;i<n;i++) dp[i][0] = 0;
+        for(int target=wt[0];target<=W;target++){
+            dp[0][target] = arr[0];
+        }
+        for(int i=1;i<n;i++){
+            for(int tar=0;tar<W+1;tar++){
+                int notpick = dp[i-1][tar];
+                int pick = 0;
+                if(tar>=wt[i]) pick = arr[i] + dp[i-1][tar-wt[i]];
+                dp[i][tar] = Math.max(pick,notpick);
+            }
+        }
+        return dp[n-1][W];
+    }
+}
+TIME COMPLEXITY - O(n*W)
+SPACE COMPLEXITY - O(n*W)
