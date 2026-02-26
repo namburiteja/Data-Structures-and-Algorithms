@@ -1,0 +1,22 @@
+class Solution {
+    public int gettingMaximum(int i,int target,int[] arr,int[] wt,int[][] dp){
+        if(target==0) return 0;
+        if(i==0){
+            if(wt[i]<=target) return arr[i];
+            return 0;
+        }
+        if(dp[i][target]!=-1) return dp[i][target];
+        int notpick = gettingMaximum(i-1,target,arr,wt,dp);
+        int pick = 0;
+        if(target>=wt[i]) pick = arr[i] + gettingMaximum(i-1,target-wt[i],arr,wt,dp);
+        return dp[i][target] = Math.max(pick,notpick);
+    }
+    public int knapsack(int W, int arr[], int wt[]) {
+        int n = arr.length;
+        int[][] dp = new int[n][W+1];
+        for(int i=0;i<n;i++) for(int j=0;j<W+1;j++) dp[i][j]= -1;
+        return gettingMaximum(n-1,W,arr,wt,dp);
+    }
+}
+TIME COMPLEXITY - O(n*W)
+SPACE COMPLEXITY - O(n*W)+O(n)
