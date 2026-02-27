@@ -1,0 +1,20 @@
+class Solution {
+    public int makeLess(int[] arr,int i,int target){
+        if(target==0) return 0;
+        if(i==0){
+            if(target%arr[0] == 0) return target/arr[i];
+            return (int) 1e9;
+        }
+        int notpick = makeLess(arr,i-1,target);
+        int pick = (int) 1e9;
+        if(arr[i]<=target) pick = 1 + makeLess(arr,i,target-arr[i]);
+        return Math.min(notpick,pick);
+    }
+    public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int ans = makeLess(coins,n-1,amount);
+        return (ans>=(int)1e9)? -1 : ans;
+    }
+}
+TIME COMPLEXITY - O(2**n)
+SPACE COMPLEXITY - O(2**n)
