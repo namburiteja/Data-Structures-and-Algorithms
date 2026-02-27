@@ -1,0 +1,22 @@
+class Solution {
+    public int coinChange(int[] arr, int target) {
+        int n = arr.length;
+        int[][] dp = new int[n][target+1];
+        for(int i=0;i<target+1;i++){
+            if(i%arr[0]==0) dp[0][i] = i/arr[0];
+            else dp[0][i] = (int) 1e9;
+        }
+        for(int i=1;i<n;i++){
+            for(int tar=0;tar<=target;tar++){
+                int notpick = dp[i-1][tar];
+                int pick = (int)1e9;
+                if(arr[i]<=tar) pick = 1 + dp[i][tar-arr[i]];
+                dp[i][tar] = Math.min(notpick,pick);
+            }
+        }
+        int ans = dp[n-1][target];
+        return (ans>=(int)1e9)? -1 : ans;
+    }
+}
+TIME COMPLEXITY - O(n*target)
+SPACE COMPLEXITY - O(n*target)
