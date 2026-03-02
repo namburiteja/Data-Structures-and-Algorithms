@@ -1,0 +1,26 @@
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int n = nums.length;
+        int total = Arrays.stream(nums).sum();
+        int x = total-target;
+        if(x<0 || x%2!=0) return 0;
+        int actualTarget = x/2;
+        int[] dp = new int[actualTarget+1];
+        if(nums[0]==0) dp[0] = 2;
+        else dp[0] = 1;
+        if(nums[0]!=0 && nums[0]<=actualTarget) dp[nums[0]]= 1;
+        for(int i=1;i<n;i++){
+            int[] temp = new int[actualTarget+1];
+            for(int tar=0;tar<=actualTarget;tar++){
+                int nottake = dp[tar];
+                int take = 0;
+                if(nums[i]<=tar) take = dp[tar-nums[i]];
+                temp[tar] = take+nottake;
+            }
+            dp = temp;
+        }
+        return dp[actualTarget];
+    }
+}
+TIME COMPLEXITY - O(n*actualTarget)
+SPACE COMPLEXITY - O(actualTarget)
