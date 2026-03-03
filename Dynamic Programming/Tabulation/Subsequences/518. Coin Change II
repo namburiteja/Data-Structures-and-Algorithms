@@ -1,0 +1,21 @@
+class Solution {
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        int[][] dp = new int[n][amount+1];
+        for(int tar=0;tar<=amount;tar++){
+            if(tar%coins[0]==0) dp[0][tar] = 1;
+            else dp[0][tar] = 0;
+        } 
+        for(int i=1;i<n;i++){
+            for(int tar=0;tar<=amount;tar++){
+                int nottake = dp[i-1][tar];
+                int take = 0;
+                if(tar>=coins[i]) take = dp[i][tar-coins[i]];
+                dp[i][tar] = take+nottake;
+            }
+        }
+        return dp[n-1][amount];
+    }
+}
+TIME COMPLEXITY - O(n*amount)
+SPACE COMPLEXITY - O(n*amount)
