@@ -1,0 +1,17 @@
+class Solution {
+    public int knapsack(int i,int[] val,int[] wt,int target){
+        if(i==0){
+            return (target/wt[i])*val[0];
+        }
+        int notpick = knapsack(i-1,val,wt,target);
+        int pick = 0;
+        if(target>=wt[i]) pick = val[i] + knapsack(i,val,wt,target-wt[i]);
+        return Math.max(pick,notpick);
+    }
+    public int knapSack(int val[], int wt[], int capacity) {
+        int n = wt.length;
+        return knapsack(n-1,val,wt,capacity);
+    }
+}
+TIME COMPLEXITY - O(2**n * capacity)
+SPACE COMPLEXITY - >O(n)
