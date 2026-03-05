@@ -1,0 +1,20 @@
+class Solution {
+    public int knapSack(int val[], int wt[], int capacity) {
+        int n = wt.length;
+        int[][] dp = new int[n][capacity+1];
+        for(int i=0;i<=capacity;i++){
+            dp[0][i] = (i/wt[0])*val[0];
+        }
+        for(int i=1;i<n;i++){
+            for(int tar=0;tar<=capacity;tar++){
+                int notpick = dp[i-1][tar];
+                int pick = 0;
+                if(tar>=wt[i]) pick = val[i] + dp[i][tar-wt[i]];
+                dp[i][tar] = Math.max(pick,notpick);
+            }
+        }
+        return dp[n-1][capacity];
+    }
+}
+TIME COMPLEXITY - O(n*capacity)
+SPACE COMPLEXITY - O(n*capacity)
