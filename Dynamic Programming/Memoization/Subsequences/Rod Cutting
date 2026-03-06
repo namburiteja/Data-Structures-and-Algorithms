@@ -1,0 +1,18 @@
+class Solution {
+    public int rodCutting(int i,int[] nums,int target,int[][] dp){
+        if(i==0) return target*nums[0];
+        if(dp[i][target]!=-1) return dp[i][target];
+        int notpick = rodCutting(i-1,nums,target,dp);
+        int pick = 0;
+        if(i+1<=target) pick = nums[i] + rodCutting(i,nums,target-(i+1),dp);
+        return dp[i][target] = Math.max(pick,notpick);
+    }
+    public int cutRod(int[] price) {
+        int n = price.length;
+        int[][] dp = new int[n][n+1];
+        for(int i=0;i<n;i++) Arrays.fill(dp[i],-1);
+        return rodCutting(n-1,price,n,dp);
+    }
+}
+TIME COMPLEXITY - O(n*n)
+SPACE COMPLEXITY - O(n*n)
