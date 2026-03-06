@@ -1,0 +1,15 @@
+class Solution {
+    public int rodCutting(int i,int[] nums,int target){
+        if(i==0) return target*nums[0];
+        int notpick = rodCutting(i-1,nums,target);
+        int pick = 0;
+        if(i+1<=target) pick = nums[i] + rodCutting(i,nums,target-(i+1));
+        return Math.max(pick,notpick);
+    }
+    public int cutRod(int[] price) {
+        int n = price.length;
+        return rodCutting(n-1,price,n);
+    }
+}
+TIME COMPLEXITY - >O(2**n)
+SPACE COMPLEXITY - >O(n)
