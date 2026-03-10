@@ -1,0 +1,17 @@
+class Solution {
+    private int longestSequence(String text1,String text2,int i1,int i2,int[][] dp){
+        if(i1==-1 || i2==-1) return 0;
+        if(dp[i1][i2]!=-1) return dp[i1][i2];
+        if(text1.charAt(i1)==text2.charAt(i2)) return dp[i1][i2] = 1 + longestSequence(text1,text2,i1-1,i2-1,dp);
+        return dp[i1][i2] = Math.max(longestSequence(text1,text2,i1-1,i2,dp),longestSequence(text1,text2,i1,i2-1,dp));
+    }
+    public int longestCommonSubsequence(String text1, String text2) {
+        int n1 = text1.length();
+        int n2 = text2.length();
+        int[][] dp = new int[n1][n2];
+        for(int i=0;i<n1;i++) for(int j=0;j<n2;j++) dp[i][j]=-1;
+        return longestSequence(text1,text2,n1-1,n2-1,dp);
+    }
+}
+TIME COMPLEXITY - O(n1*n2)
+SPACE COMPLEXITY - O(n1*n2)+O(n1+n2)
