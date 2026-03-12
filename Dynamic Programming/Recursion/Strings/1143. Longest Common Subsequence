@@ -11,4 +11,4 @@ class Solution {
     }
 }
 TIME COMPLEXITY - O(2**n1 + 2**n2)
-SPACE COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n1+n2)
