@@ -1,0 +1,25 @@
+class Solution {
+    public int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        int[] dp = new int[n+1];
+        for(int j=0;j<=n;j++) dp[j] = j;
+        for(int i=1;i<=m;i++){
+            int[] temp = new int[n+1];
+            temp[0] = i;
+            for(int j=1;j<=n;j++){
+                if(word1.charAt(i-1)==word2.charAt(j-1)) temp[j] = dp[j-1];
+                else{
+                    int insert = 1 + temp[j-1];
+                    int delete = 1 + dp[j];
+                    int replace = 1 + dp[j-1];
+                    temp[j] = Math.min(insert,Math.min(delete,replace));
+                }
+            }
+            dp = temp;
+        }
+        return dp[n];
+    }
+}
+TIME COMPLEXITY - O(m*n)
+SPACE COMPLEXITY - O(n)
