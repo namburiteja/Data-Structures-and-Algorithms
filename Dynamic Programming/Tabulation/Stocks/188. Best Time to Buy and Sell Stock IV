@@ -11,5 +11,5 @@ class Solution {
         return dp[0][1][0];
     }
 }
-TIME COMPLEXITY - O(n*2*k)
-SPACE COMPLEXITY - O(n*2*k)
+TIME COMPLEXITY - O(n*2*k+k)
+SPACE COMPLEXITY - O(n*2*k+k)
