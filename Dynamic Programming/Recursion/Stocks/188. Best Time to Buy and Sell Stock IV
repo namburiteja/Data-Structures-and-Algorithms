@@ -17,5 +17,5 @@ class Solution {
         return bttbass(prices,0,1,0,k,n);
     }
 }
-TIME COMPLEXITY - O(2^(n*2*k))
-SPACE COMPLEXITY - O(n+2+k)
+TIME COMPLEXITY - O(2^(n*2*k+k))
+SPACE COMPLEXITY - O(n+2+k+k)
