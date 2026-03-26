@@ -1,0 +1,17 @@
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[2][k+k+1];
+        int[][] temp = new int[2][k+k+1];
+        for(int i=n-1;i>=0;i--){
+            for(int j=k+k-1;j>=0;j--){
+                temp[1][j] = Math.max(-prices[i]+dp[0][j+1],dp[1][j]);
+                temp[0][j] = Math.max(prices[i]+dp[1][j+1],dp[0][j]);
+            }
+            dp = temp;
+        }
+        return dp[1][0];
+    }
+}
+TIME COMPLEXITY - O(n*2*k+k)
+SPACE COMPLEXITY - O(2*k+k)
