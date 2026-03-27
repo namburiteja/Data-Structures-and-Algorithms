@@ -1,0 +1,20 @@
+class Solution {
+    private int bttbass(int[] prices,int i,int flag,int n){
+        if(i>=n) return 0;
+        if(flag==1){
+            int buy = -prices[i] + bttbass(prices,i+1,0,n);
+            int notbuy = bttbass(prices,i+1,1,n);
+            return Math.max(buy,notbuy);
+        }else{
+            int sell = prices[i] + bttbass(prices,i+2,1,n);
+            int notsell = bttbass(prices,i+1,0,n);
+            return Math.max(sell,notsell);
+        }
+    }
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        return bttbass(prices,0,1,n);
+    }
+}
+TIME COMPLEXITY - O(2^(n))
+SPACE COMPLEXITY - O(n)
