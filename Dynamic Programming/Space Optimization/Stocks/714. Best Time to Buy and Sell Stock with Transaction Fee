@@ -1,0 +1,15 @@
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int dp[] = new int[2];
+        int temp[] = new int[2];
+        for(int i=n-1;i>=0;i--){
+            temp[1] = Math.max(-prices[i]+dp[0],dp[1]);
+            temp[0] = Math.max(prices[i]-fee+dp[1],dp[0]);
+            dp = temp;
+        }
+        return dp[1];
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(2)
