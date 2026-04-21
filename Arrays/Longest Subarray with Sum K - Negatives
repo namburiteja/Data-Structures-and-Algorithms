@@ -1,0 +1,26 @@
+// User function Template for Java
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        int n = arr.length;
+        int l = 0;
+        int sum = 0;
+        int len = 0;
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(sum==k){
+                len = i+1;
+            }
+            if(hm.containsKey(sum-k)){
+                len = Math.max(len,i-hm.get(sum-k));
+            }
+            if(!hm.containsKey(sum)){
+                hm.put(sum,i);
+            }
+        }
+        return len;
+    }
+}
+TIME COMPLEXITY - O(n)
+SPACE COMPLEXITY - O(n)
