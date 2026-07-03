@@ -1,67 +1,102 @@
-class Main {
-    static class Node{
+class SinglyLinkedList {
+
+    // Node class
+    class Node{
         int data;
         Node next;
-        Node(int d){
-            this.data = d;
-            next = null;
+        Node(int data){
+            this.data = data;
+            this.next = next;
         }
     }
     Node head;
-    public static Main insert(Main list,int data){
-        Node new_node  = new Node(data);
-        if(list.head==null){
-            list.head = new_node;
-        }
-        else{
-            Node current = list.head; 
-            while(current.next!=null){
-                current = current.next;
-            }
-            current.next = new_node;
-        }
-        return list;
+    public void insertAtBeginning(int val){
+        Node newVal = new Node(val);
+        newVal.next = head;
+        head = newVal;
     }
-    public static void printList(Main list){
-        Node curr = list.head;
-        while(curr.next!=null){
-            System.out.println(curr.data);
-            curr = curr.next;
-        }
-        System.out.println(curr.data);
-    }
-    public static void update(Main list,int position,int newData){
-        if(list.head==null){
-            System.out.println("cannout update");
+    public void insertAtEnd(int val){
+        Node newNode = new Node(val);
+        if(head==null){
+            head=newNode;
+            newNode.next = null;
             return;
         }
-        Node cur = list.head;
-        int count = 0;
-        while(cur!=null){
-            if(count==position){
-                cur.data = newData;
+        if(head.next==null){
+            head.next = newNode;
+            newNode.next = null;
+            return;
+        }
+        Node temp = head;
+        while(temp.next!=null){
+            temp = temp.next;
+        }
+        temp.next = newNode;
+        newNode.next = null;
+    }
+    public void display(){
+        if(head==null){
+            System.out.println("List is Empty");
+            return;
+        }
+        Node temp = head;
+        while(temp!=null){
+            System.out.print(temp.data+" -> ");
+            temp = temp.next;
+        }
+        System.out.print("null");
+        System.out.println();
+    }
+    public void search(int val){
+        if(head==null) System.out.println("List is Empty");
+        Node temp = head;
+        int pos = 1;
+        while(temp!=null){
+            if(temp.data==val){
+                System.out.println("Element found at position "+pos);
                 return;
             }
-            count++;
-            cur = cur.next;
+            pos+=1;
+            temp = temp.next;
         }
-        System.out.println("position not found in list");
+        if(temp==null) System.out.println("There is no "+val+" in this list");
     }
-    public static void delete(Main list){
-        Node curr = list.head;
-        while(curr.next.next!=null){
-            curr = curr.next;
+    public void deleteFromBeginning(){
+        if(head==null){
+            System.out.println("There is no elemet to delete");
+            return;
         }
-        curr.next = null;
+        head = head.next;
     }
+    public void deleteFromEnd(){
+        if(head==null){
+            System.out.println("There is no elemet to delete");
+            return;
+        }
+        Node temp = head;
+        while(temp.next.next!=null){
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+    }
+
+    // Main Method
     public static void main(String[] args) {
-        Main list = new Main();
-        int[] arr = {1,2,3,4,5};
-        for(int i=0;i<arr.length;i++){
-            list = insert(list,arr[i]);
-        }
-        delete(list);
-        update(list,2,33);
-        printList(list);
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.insertAtBeginning(20);
+        list.insertAtBeginning(10);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+
+        list.display();
+
+        list.search(30);
+
+        list.deleteFromBeginning();
+        list.display();
+
+        list.deleteFromEnd();
+        list.display();
     }
 }
